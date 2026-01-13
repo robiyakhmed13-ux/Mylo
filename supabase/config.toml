@@ -15,6 +15,12 @@ verify_jwt = false
 [functions.telegram-setup]
 verify_jwt = false
 
+[functions.telegram-auth]
+verify_jwt = false
+
+[functions.link-telegram-code]
+verify_jwt = false
+
 [functions.get-stock-price]
 verify_jwt = false
 
@@ -31,4 +37,7 @@ verify_jwt = false
 verify_jwt = true
 
 [functions.daily-push-check]
+verify_jwt = false
+
+[functions.insights]
 verify_jwt = false
