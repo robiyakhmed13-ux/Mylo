@@ -128,21 +128,24 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
     };
   }, [mode, selectedCategory, reductionPercent, categorySpending, goals]);
 
-  // Calculate daily spending results
+  // Calculate daily spending results with accurate weekly/monthly projections
   const dailyResult: DailyCalculatorResult | null = useMemo(() => {
     if (mode !== 'daily' || dailyAmount <= 0) return null;
 
-    const monthlyTotal = dailyAmount * daysPerWeek * 4; // 4 weeks per month
-    const yearlyTotal = monthlyTotal * 12;
+    // More accurate calculation: average 4.33 weeks per month (52 weeks / 12 months)
+    const weeksPerMonth = 52 / 12; // ~4.33
+    const monthlyTotal = Math.round(dailyAmount * daysPerWeek * weeksPerMonth);
+    const yearlyTotal = dailyAmount * daysPerWeek * 52; // Exact yearly calculation
 
-    // Calculate days to reach first goal
+    // Calculate days to reach first goal based on actual spending days
     let daysToGoal: number | null = null;
     if (goals.length > 0 && monthlyTotal > 0) {
       const firstGoal = goals[0];
       const remaining = firstGoal.target - firstGoal.current;
       if (remaining > 0) {
-        const dailySavings = monthlyTotal / 30;
-        daysToGoal = Math.ceil(remaining / dailySavings);
+        // Calculate based on actual spending days per week
+        const actualSpendingDaysPerMonth = daysPerWeek * weeksPerMonth;
+        daysToGoal = Math.ceil(remaining / dailyAmount);
       }
     }
 
