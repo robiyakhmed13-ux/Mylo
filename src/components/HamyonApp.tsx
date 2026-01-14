@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, lazy, Suspense, useMemo } from "react";
 import { useApp } from "@/context/AppContext";
 import { BottomNav } from "@/components/BottomNav";
 import { HomeScreen } from "@/components/HomeScreen";
@@ -8,7 +8,7 @@ import { NotificationsPanel } from "@/components/NotificationsPanel";
 import { useSmartNotifications } from "@/hooks/useSmartNotifications";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
 import { Bell } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Lazy load screens for better performance
 const TransactionsScreen = lazy(() => import("@/components/TransactionsScreen").then(m => ({ default: m.TransactionsScreen })));
@@ -31,6 +31,23 @@ const DebtPayoffScreen = lazy(() => import("@/components/DebtPayoffScreen").then
 const MoreScreen = lazy(() => import("@/components/MoreScreen").then(m => ({ default: m.MoreScreen })));
 const HelpScreen = lazy(() => import("@/components/HelpScreen").then(m => ({ default: m.HelpScreen })));
 const LearnScreen = lazy(() => import("@/components/LearnScreen").then(m => ({ default: m.LearnScreen })));
+
+// Page transition variants
+const pageVariants = {
+  initial: { opacity: 0, x: 20, scale: 0.98 },
+  enter: { 
+    opacity: 1, 
+    x: 0, 
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" as const }
+  },
+  exit: { 
+    opacity: 0, 
+    x: -20, 
+    scale: 0.98,
+    transition: { duration: 0.2, ease: "easeIn" as const }
+  }
+};
 
 const LoadingFallback = () => (
   <div className="screen-container flex items-center justify-center">
@@ -100,35 +117,46 @@ const HamyonApp: React.FC = () => {
         </motion.button>
       )}
 
-      {/* Main Content */}
-      {activeScreen === "home" && (
-        <HomeScreen onAddExpense={openAddExpense} onAddIncome={openAddIncome} />
-      )}
-      
-      <Suspense fallback={<LoadingFallback />}>
-        {activeScreen === "transactions" && (
-          <TransactionsScreen onEditTransaction={openEditTransaction} />
-        )}
-        {activeScreen === "analytics" && <AnalyticsScreen />}
-        {activeScreen === "ai" && <AIScreen />}
-        {activeScreen === "limits" && <LimitsScreen />}
-        {activeScreen === "goals" && <GoalsScreen />}
-        {activeScreen === "recurring" && <RecurringScreen />}
-        {activeScreen === "settings" && <SettingsScreen />}
-        {activeScreen === "accounts" && <AccountsScreen />}
-        {activeScreen === "reports" && <ReportsScreen />}
-        {activeScreen === "debt-assessment" && <DebtAssessmentScreen />}
-        {(activeScreen === "subscriptions" || activeScreen === "subscriptions-add") && <SubscriptionsScreen openAddForm={activeScreen === "subscriptions-add"} />}
-        {activeScreen === "bill-split" && <BillSplitScreen />}
-        {activeScreen === "net-worth" && <NetWorthScreen />}
-        {activeScreen === "investments" && <InvestmentsScreen />}
-        {activeScreen === "cash-flow" && <CashFlowScreen />}
-        {activeScreen === "envelopes" && <EnvelopesScreen />}
-        {activeScreen === "debt-payoff" && <DebtPayoffScreen />}
-        {activeScreen === "more" && <MoreScreen />}
-        {activeScreen === "help" && <HelpScreen />}
-        {activeScreen === "learn" && <LearnScreen />}
-      </Suspense>
+      {/* Main Content with Page Transitions */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeScreen}
+          variants={pageVariants}
+          initial="initial"
+          animate="enter"
+          exit="exit"
+          className="h-full"
+        >
+          {activeScreen === "home" && (
+            <HomeScreen onAddExpense={openAddExpense} onAddIncome={openAddIncome} />
+          )}
+          
+          <Suspense fallback={<LoadingFallback />}>
+            {activeScreen === "transactions" && (
+              <TransactionsScreen onEditTransaction={openEditTransaction} />
+            )}
+            {activeScreen === "analytics" && <AnalyticsScreen />}
+            {activeScreen === "ai" && <AIScreen />}
+            {activeScreen === "limits" && <LimitsScreen />}
+            {activeScreen === "goals" && <GoalsScreen />}
+            {activeScreen === "recurring" && <RecurringScreen />}
+            {activeScreen === "settings" && <SettingsScreen />}
+            {activeScreen === "accounts" && <AccountsScreen />}
+            {activeScreen === "reports" && <ReportsScreen />}
+            {activeScreen === "debt-assessment" && <DebtAssessmentScreen />}
+            {(activeScreen === "subscriptions" || activeScreen === "subscriptions-add") && <SubscriptionsScreen openAddForm={activeScreen === "subscriptions-add"} />}
+            {activeScreen === "bill-split" && <BillSplitScreen />}
+            {activeScreen === "net-worth" && <NetWorthScreen />}
+            {activeScreen === "investments" && <InvestmentsScreen />}
+            {activeScreen === "cash-flow" && <CashFlowScreen />}
+            {activeScreen === "envelopes" && <EnvelopesScreen />}
+            {activeScreen === "debt-payoff" && <DebtPayoffScreen />}
+            {activeScreen === "more" && <MoreScreen />}
+            {activeScreen === "help" && <HelpScreen />}
+            {activeScreen === "learn" && <LearnScreen />}
+          </Suspense>
+        </motion.div>
+      </AnimatePresence>
       
       {/* Bottom Navigation */}
       <BottomNav onAddClick={openAddExpense} />
