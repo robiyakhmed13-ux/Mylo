@@ -14,7 +14,10 @@ import {
   Percent,
   DollarSign,
   Calendar,
-  CalendarDays
+  CalendarDays,
+  Coffee,
+  Scissors,
+  Wallet
 } from "lucide-react";
 
 interface BudgetSimulatorModalProps {
@@ -39,7 +42,26 @@ interface DailyCalculatorResult {
   daysToGoal: number | null;
 }
 
-type CalculatorMode = 'reduction' | 'daily';
+interface SavingsProjectionResult {
+  dailyCost: number;
+  daysPerWeek: number;
+  monthlySavings: number;
+  yearlySavings: number;
+  fiveYearSavings: number;
+  daysToGoal: number | null;
+}
+
+type CalculatorMode = 'reduction' | 'daily' | 'savings';
+
+// Common daily expenses with presets
+const DAILY_EXPENSE_PRESETS = [
+  { id: 'coffee', emoji: '☕', labelEn: 'Coffee', labelRu: 'Кофе', labelUz: 'Qahva', defaultAmount: 5 },
+  { id: 'lunch', emoji: '🍱', labelEn: 'Lunch', labelRu: 'Обед', labelUz: 'Tushlik', defaultAmount: 12 },
+  { id: 'snacks', emoji: '🍪', labelEn: 'Snacks', labelRu: 'Перекус', labelUz: 'Gazak', defaultAmount: 3 },
+  { id: 'transport', emoji: '🚕', labelEn: 'Transport', labelRu: 'Транспорт', labelUz: 'Transport', defaultAmount: 8 },
+  { id: 'subscription', emoji: '📱', labelEn: 'App/Sub', labelRu: 'Подписка', labelUz: 'Obuna', defaultAmount: 15 },
+  { id: 'custom', emoji: '✏️', labelEn: 'Custom', labelRu: 'Другое', labelUz: 'Boshqa', defaultAmount: 0 },
+];
 
 export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOpen, onClose }) => {
   const { transactions, currency, lang, goals, getCat, catLabel, allCats } = useApp();
@@ -48,6 +70,11 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
   const [reductionPercent, setReductionPercent] = useState(50);
   const [dailyAmount, setDailyAmount] = useState<number>(0);
   const [daysPerWeek, setDaysPerWeek] = useState<number>(5);
+  
+  // Savings projection state
+  const [selectedExpensePreset, setSelectedExpensePreset] = useState<string>('coffee');
+  const [savingsAmount, setSavingsAmount] = useState<number>(5);
+  const [savingsDaysPerWeek, setSavingsDaysPerWeek] = useState<number>(5);
   
   const labels = {
     title: lang === 'ru' ? 'Симулятор бюджета' : lang === 'uz' ? 'Byudjet simulyatori' : 'Budget Simulator',
@@ -63,14 +90,21 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
     perMonth: lang === 'ru' ? 'в месяц' : lang === 'uz' ? 'oyiga' : 'per month',
     perYear: lang === 'ru' ? 'в год' : lang === 'uz' ? 'yiliga' : 'per year',
     tip: lang === 'ru' ? 'Совет: попробуйте разные сценарии!' : lang === 'uz' ? 'Maslahat: turli senariylarni sinab ko\'ring!' : 'Tip: try different scenarios!',
-    modeReduction: lang === 'ru' ? 'Сокращение расходов' : lang === 'uz' ? 'Xarajatlarni kamaytirish' : 'Reduce Spending',
-    modeDaily: lang === 'ru' ? 'Ежедневные расходы' : lang === 'uz' ? 'Kunlik xarajatlar' : 'Daily Spending',
+    modeReduction: lang === 'ru' ? 'Сокращение' : lang === 'uz' ? 'Kamaytirish' : 'Reduce',
+    modeDaily: lang === 'ru' ? 'Расчёт' : lang === 'uz' ? 'Hisoblash' : 'Calculate',
+    modeSavings: lang === 'ru' ? 'Экономия' : lang === 'uz' ? 'Tejash' : 'Save',
     dailyAmount: lang === 'ru' ? 'Сумма в день' : lang === 'uz' ? 'Kunlik summa' : 'Daily Amount',
     daysPerWeek: lang === 'ru' ? 'Дней в неделю' : lang === 'uz' ? 'Haftada kunlar' : 'Days Per Week',
     monthlyTotal: lang === 'ru' ? 'Всего в месяц' : lang === 'uz' ? 'Oylik jami' : 'Monthly Total',
     yearlyTotal: lang === 'ru' ? 'Всего в год' : lang === 'uz' ? 'Yillik jami' : 'Yearly Total',
     weekdays: lang === 'ru' ? 'Будни (5 дней)' : lang === 'uz' ? 'Ish kunlari (5 kun)' : 'Weekdays (5 days)',
     allWeek: lang === 'ru' ? 'Вся неделя (7 дней)' : lang === 'uz' ? 'Butun hafta (7 kun)' : 'Full Week (7 days)',
+    selectExpense: lang === 'ru' ? 'Выберите расход' : lang === 'uz' ? 'Xarajatni tanlang' : 'Select expense to cut',
+    ifYouStop: lang === 'ru' ? 'Если вы откажетесь от' : lang === 'uz' ? 'Agar siz' : 'If you stop',
+    youCouldSave: lang === 'ru' ? 'вы сэкономите' : lang === 'uz' ? 'tejaysiz' : 'you could save',
+    in5Years: lang === 'ru' ? 'За 5 лет' : lang === 'uz' ? '5 yil ichida' : 'In 5 years',
+    dailyCost: lang === 'ru' ? 'Стоимость в день' : lang === 'uz' ? 'Kunlik narx' : 'Cost per day',
+    savingsTip: lang === 'ru' ? 'Небольшие ежедневные расходы складываются!' : lang === 'uz' ? 'Kichik kunlik xarajatlar yig\'iladi!' : 'Small daily expenses add up!',
   };
 
   // Calculate spending by category for this month
@@ -143,8 +177,6 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
       const firstGoal = goals[0];
       const remaining = firstGoal.target - firstGoal.current;
       if (remaining > 0) {
-        // Calculate based on actual spending days per week
-        const actualSpendingDaysPerMonth = daysPerWeek * weeksPerMonth;
         daysToGoal = Math.ceil(remaining / dailyAmount);
       }
     }
@@ -157,6 +189,35 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
       daysToGoal
     };
   }, [mode, dailyAmount, daysPerWeek, goals]);
+
+  // Calculate savings projection results
+  const savingsProjection: SavingsProjectionResult | null = useMemo(() => {
+    if (mode !== 'savings' || savingsAmount <= 0) return null;
+
+    const weeksPerMonth = 52 / 12;
+    const monthlySavings = Math.round(savingsAmount * savingsDaysPerWeek * weeksPerMonth);
+    const yearlySavings = savingsAmount * savingsDaysPerWeek * 52;
+    const fiveYearSavings = yearlySavings * 5;
+
+    // Calculate days to reach first goal
+    let daysToGoal: number | null = null;
+    if (goals.length > 0 && monthlySavings > 0) {
+      const firstGoal = goals[0];
+      const remaining = firstGoal.target - firstGoal.current;
+      if (remaining > 0) {
+        daysToGoal = Math.ceil(remaining / savingsAmount);
+      }
+    }
+
+    return {
+      dailyCost: savingsAmount,
+      daysPerWeek: savingsDaysPerWeek,
+      monthlySavings,
+      yearlySavings,
+      fiveYearSavings,
+      daysToGoal
+    };
+  }, [mode, savingsAmount, savingsDaysPerWeek, goals]);
 
   if (!isOpen) return null;
 
@@ -202,29 +263,40 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
 
           {/* Content */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {/* Mode Selector */}
-            <div className="flex gap-2 p-1 rounded-xl bg-secondary/50">
+            {/* Mode Selector - 3 modes */}
+            <div className="flex gap-1 p-1 rounded-xl bg-secondary/50">
               <button
                 onClick={() => setMode('reduction')}
-                className={`flex-1 px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all ${
+                className={`flex-1 px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
                   mode === 'reduction'
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <Percent className="w-4 h-4" />
-                <span className="text-sm font-medium">{labels.modeReduction}</span>
+                <Percent className="w-3.5 h-3.5" />
+                <span className="text-xs font-medium">{labels.modeReduction}</span>
               </button>
               <button
                 onClick={() => setMode('daily')}
-                className={`flex-1 px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all ${
+                className={`flex-1 px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
                   mode === 'daily'
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <CalendarDays className="w-4 h-4" />
-                <span className="text-sm font-medium">{labels.modeDaily}</span>
+                <CalendarDays className="w-3.5 h-3.5" />
+                <span className="text-xs font-medium">{labels.modeDaily}</span>
+              </button>
+              <button
+                onClick={() => setMode('savings')}
+                className={`flex-1 px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
+                  mode === 'savings'
+                    ? 'bg-primary text-primary-foreground shadow-md'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Scissors className="w-3.5 h-3.5" />
+                <span className="text-xs font-medium">{labels.modeSavings}</span>
               </button>
             </div>
 
@@ -339,6 +411,104 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                         </button>
                       ))}
                     </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Savings Projection Inputs */}
+            {mode === 'savings' && (
+              <div className="space-y-4">
+                {/* Expense Type Selection */}
+                <div className="p-4 rounded-2xl bg-secondary/50">
+                  <label className="block text-sm font-medium text-foreground mb-3">
+                    {labels.selectExpense}
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {DAILY_EXPENSE_PRESETS.map(preset => (
+                      <button
+                        key={preset.id}
+                        onClick={() => {
+                          setSelectedExpensePreset(preset.id);
+                          if (preset.defaultAmount > 0) {
+                            setSavingsAmount(preset.defaultAmount);
+                          }
+                        }}
+                        className={`p-3 rounded-xl flex flex-col items-center gap-1 transition-all ${
+                          selectedExpensePreset === preset.id
+                            ? 'bg-primary text-primary-foreground shadow-md'
+                            : 'bg-background border border-border hover:bg-muted'
+                        }`}
+                      >
+                        <span className="text-xl">{preset.emoji}</span>
+                        <span className="text-xs font-medium">
+                          {lang === 'ru' ? preset.labelRu : lang === 'uz' ? preset.labelUz : preset.labelEn}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Daily Cost Input */}
+                <div className="p-4 rounded-2xl bg-secondary/50">
+                  <label className="block text-sm font-medium text-foreground mb-3">
+                    {labels.dailyCost}
+                  </label>
+                  <div className="relative">
+                    <Wallet className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.5"
+                      value={savingsAmount || ''}
+                      onChange={(e) => setSavingsAmount(Number(e.target.value) || 0)}
+                      placeholder={lang === 'ru' ? 'Введите сумму' : lang === 'uz' ? 'Summani kiriting' : 'Enter amount'}
+                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                </div>
+
+                {/* Days Per Week */}
+                <div className="p-4 rounded-2xl bg-secondary/50">
+                  <label className="block text-sm font-medium text-foreground mb-3">
+                    {labels.daysPerWeek}
+                  </label>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setSavingsDaysPerWeek(5)}
+                      className={`flex-1 px-3 py-2.5 rounded-xl flex items-center justify-center gap-2 transition-all ${
+                        savingsDaysPerWeek === 5
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-background border border-border hover:bg-muted'
+                      }`}
+                    >
+                      <Calendar className="w-4 h-4" />
+                      <span className="text-sm font-medium">5</span>
+                    </button>
+                    <button
+                      onClick={() => setSavingsDaysPerWeek(7)}
+                      className={`flex-1 px-3 py-2.5 rounded-xl flex items-center justify-center gap-2 transition-all ${
+                        savingsDaysPerWeek === 7
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-background border border-border hover:bg-muted'
+                      }`}
+                    >
+                      <CalendarDays className="w-4 h-4" />
+                      <span className="text-sm font-medium">7</span>
+                    </button>
+                    {[1, 2, 3, 4, 6].map(days => (
+                      <button
+                        key={days}
+                        onClick={() => setSavingsDaysPerWeek(days)}
+                        className={`flex-1 px-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                          savingsDaysPerWeek === days
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-background border border-border hover:bg-muted'
+                        }`}
+                      >
+                        {days}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -532,6 +702,90 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                   {lang === 'ru' ? 'Введите ежедневную сумму для расчета' : 
                    lang === 'uz' ? 'Hisoblash uchun kunlik summani kiriting' : 
                    'Enter daily amount to calculate'}
+                </p>
+              </div>
+            ) : null}
+
+            {/* Results - Savings Projection Mode */}
+            {mode === 'savings' && savingsProjection ? (
+              <div className="space-y-3">
+                {/* Savings Impact Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 rounded-2xl bg-gradient-to-br from-income/10 to-income/5 border border-income/20"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-income/20 flex items-center justify-center">
+                      <PiggyBank className="w-5 h-5 text-income" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground">{labels.monthlySavings}</p>
+                      <p className="text-2xl font-bold text-income">
+                        +{formatCurrency(savingsProjection.monthlySavings, currency)}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between py-2 border-t border-income/10">
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">{labels.yearlySavings}</span>
+                    </div>
+                    <span className="font-bold text-income">
+                      +{formatCurrency(savingsProjection.yearlySavings, currency)}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between py-2 border-t border-income/10">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">{labels.in5Years}</span>
+                    </div>
+                    <span className="font-bold text-income text-lg">
+                      +{formatCurrency(savingsProjection.fiveYearSavings, currency)}
+                    </span>
+                  </div>
+                  
+                  {savingsProjection.daysToGoal !== null && goals.length > 0 && (
+                    <div className="flex items-center justify-between py-2 border-t border-income/10">
+                      <div className="flex items-center gap-2">
+                        <Target className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground">
+                          {goals[0].name} <ArrowRight className="w-3 h-3 inline" />
+                        </span>
+                      </div>
+                      <span className="font-bold text-foreground">
+                        {savingsProjection.daysToGoal} {lang === 'ru' ? 'дней' : lang === 'uz' ? 'kun' : 'days'}
+                      </span>
+                    </div>
+                  )}
+                </motion.div>
+
+                {/* Calculation Details */}
+                <div className="p-4 rounded-2xl bg-secondary/50">
+                  <p className="text-xs text-muted-foreground text-center">
+                    {formatCurrency(savingsProjection.dailyCost, currency)} × {savingsProjection.daysPerWeek} {lang === 'ru' ? 'дней' : lang === 'uz' ? 'kun' : 'days'}/wk × 52 wk = {formatCurrency(savingsProjection.yearlySavings, currency)}/{lang === 'ru' ? 'год' : lang === 'uz' ? 'yil' : 'yr'}
+                  </p>
+                </div>
+
+                {/* Tip */}
+                <div className="p-3 rounded-xl bg-income/10 border border-income/20">
+                  <p className="text-sm text-income flex items-center gap-2">
+                    <Coffee className="w-4 h-4" />
+                    {labels.savingsTip}
+                  </p>
+                </div>
+              </div>
+            ) : mode === 'savings' ? (
+              <div className="p-8 text-center">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-muted flex items-center justify-center mb-3">
+                  <Scissors className="w-8 h-8 text-muted-foreground" />
+                </div>
+                <p className="text-muted-foreground">
+                  {lang === 'ru' ? 'Выберите расход для расчета экономии' : 
+                   lang === 'uz' ? 'Tejashni hisoblash uchun xarajatni tanlang' : 
+                   'Select an expense to calculate savings'}
                 </p>
               </div>
             ) : null}
