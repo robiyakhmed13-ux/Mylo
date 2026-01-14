@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProvider } from "@/context/AppContext";
 import { isTelegramMiniApp } from "@/lib/telegram";
+import { useMemo } from "react";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import TelegramAuth from "./pages/TelegramAuth";
@@ -21,8 +22,11 @@ const queryClient = new QueryClient({
   },
 });
 
-// Detect platform at app level
-const isTelegramEnv = isTelegramMiniApp();
+// Auth route component that detects platform at render time (not module load time)
+const AuthRoute = () => {
+  const isTelegramEnv = useMemo(() => isTelegramMiniApp(), []);
+  return isTelegramEnv ? <TelegramAuth /> : <Auth />;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -33,11 +37,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            {/* Platform-specific auth routes */}
-            <Route 
-              path="/auth" 
-              element={isTelegramEnv ? <TelegramAuth /> : <Auth />} 
-            />
+            {/* Platform-specific auth routes - detection happens at render time */}
+            <Route path="/auth" element={<AuthRoute />} />
             <Route path="/telegram-auth" element={<TelegramAuth />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
