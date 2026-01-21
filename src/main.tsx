@@ -2,15 +2,17 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-// Register service worker for PWA
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+// Register service worker only in production builds.
+// In preview/dev, caching JS bundles can cause React to load twice, breaking hooks.
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
       .then((registration) => {
-        console.log('SW registered:', registration.scope);
+        console.log("SW registered:", registration.scope);
       })
       .catch((error) => {
-        console.log('SW registration failed:', error);
+        console.log("SW registration failed:", error);
       });
   });
 }

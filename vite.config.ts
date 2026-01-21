@@ -58,6 +58,8 @@ export default defineConfig(({ mode }) => ({
     })
   ].filter(Boolean),
   resolve: {
+    // Prevent duplicate React instances which can break hooks (useState/useEffect becomes null)
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },

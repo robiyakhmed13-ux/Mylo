@@ -1,4 +1,4 @@
-const CACHE_NAME = 'monex-v1';
+const CACHE_NAME = 'monex-v2';
 const OFFLINE_URL = '/';
 
 // Assets to cache on install
@@ -47,6 +47,20 @@ self.addEventListener('fetch', (event) => {
   // Skip API requests (let them go to network)
   if (event.request.url.includes('/api/') || 
       event.request.url.includes('supabase.co')) {
+    return;
+  }
+
+  // CRITICAL: Never cache JS/CSS bundles.
+  // Caching Vite chunks can lead to mixed old/new bundles and duplicate React instances,
+  // which breaks hooks with errors like "Cannot read properties of null (reading 'useEffect')".
+  const dest = event.request.destination;
+  if (dest === 'script' || dest === 'style' || dest === 'worker') {
+    return;
+  }
+  if (event.request.url.includes('/node_modules/') || event.request.url.includes('/assets/')) {
+    return;
+  }
+  if (event.request.url.match(/\.js(\?|$)/) || event.request.url.match(/\.css(\?|$)/)) {
     return;
   }
 
