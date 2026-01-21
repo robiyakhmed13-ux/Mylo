@@ -5,12 +5,14 @@ import { safeJSON } from "@/lib/storage";
 import { 
   Target, CreditCard, PieChart, Wallet, TrendingUp, Calculator,
   Receipt, Users, Repeat, FileText, DollarSign, ArrowLeft,
-  Settings, Search, Star, X, Brain, Sparkles, Flag
+  Settings, Search, Star, X, Brain, Sparkles, Flag, Trophy
 } from "lucide-react";
 import { ScreenType } from "@/types";
 import { AICopilotPanel } from "./AICopilotPanel";
 import { FinancePlannerModal } from "./FinancePlannerModal";
 import { BudgetSimulatorModal } from "./BudgetSimulatorModal";
+import { SpendingChallengeScreen } from "./SpendingChallengeScreen";
+import { useHaptic } from "@/hooks/useHaptic";
 
 interface ToolItem {
   screen: ScreenType;
@@ -42,18 +44,26 @@ const STORAGE_KEY = "hamyon_tool_usage";
 
 export const MoreScreen: React.FC = () => {
   const { setActiveScreen, t, lang } = useApp();
+  const { triggerLight } = useHaptic();
   const [searchQuery, setSearchQuery] = useState("");
   const [toolUsage, setToolUsage] = useState<Record<string, number>>(() => safeJSON.get(STORAGE_KEY, {}));
   const [showAICopilot, setShowAICopilot] = useState(false);
   const [showFinancePlanner, setShowFinancePlanner] = useState(false);
   const [showBudgetSimulator, setShowBudgetSimulator] = useState(false);
+  const [showSpendingChallenge, setShowSpendingChallenge] = useState(false);
 
   const handleToolClick = (screen: ScreenType) => {
+    triggerLight();
     const newUsage = { ...toolUsage, [screen]: (toolUsage[screen] || 0) + 1 };
     setToolUsage(newUsage);
     safeJSON.set(STORAGE_KEY, newUsage);
     setActiveScreen(screen);
   };
+
+  // If showing spending challenge, render that screen
+  if (showSpendingChallenge) {
+    return <SpendingChallengeScreen onBack={() => setShowSpendingChallenge(false)} />;
+  }
 
   const frequentlyUsed = useMemo(() => {
     return Object.entries(toolUsage)
@@ -154,6 +164,25 @@ export const MoreScreen: React.FC = () => {
               </p>
               <p className="text-caption truncate">
                 {lang === 'ru' ? 'Сценарии "что если"' : lang === 'uz' ? '"Nima bo\'lsa"' : '"What if" scenarios'}
+              </p>
+            </div>
+            <span className="text-muted-foreground">→</span>
+          </button>
+
+          {/* Spending Challenge */}
+          <button
+            onClick={() => { triggerLight(); setShowSpendingChallenge(true); }}
+            className="card-action w-full flex items-center gap-4 active:opacity-80"
+          >
+            <div className="w-12 h-12 rounded-xl bg-rose-500/15 flex items-center justify-center flex-shrink-0">
+              <Trophy className="w-6 h-6 text-rose-500" />
+            </div>
+            <div className="flex-1 text-left min-w-0">
+              <p className="text-body-medium text-foreground">
+                {lang === 'ru' ? 'Челлендж расходов' : lang === 'uz' ? 'Xarajat chellenji' : 'Spending Challenge'}
+              </p>
+              <p className="text-caption truncate">
+                {lang === 'ru' ? 'Недельные цели без трат' : lang === 'uz' ? 'Haftalik maqsadlar' : 'Weekly no-spend goals'}
               </p>
             </div>
             <span className="text-muted-foreground">→</span>
