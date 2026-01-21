@@ -1,7 +1,8 @@
 import React, { memo } from "react";
 import { useApp } from "@/context/AppContext";
-import { Home, Activity, Brain, Target, MoreHorizontal, Plus } from "lucide-react";
+import { Home, Activity, Brain, MoreHorizontal, Plus } from "lucide-react";
 import { ScreenType } from "@/types";
+import { useHaptic } from "@/hooks/useHaptic";
 
 /**
  * Bottom Navigation - Design System Rules:
@@ -33,6 +34,7 @@ interface BottomNavProps {
 
 export const BottomNav = memo<BottomNavProps>(({ onAddClick }) => {
   const { activeScreen, setActiveScreen, lang } = useApp();
+  const { triggerLight, triggerMedium } = useHaptic();
 
   const getLabel = (key: string): string => {
     const labels: Record<string, Record<string, string>> = {
@@ -55,6 +57,16 @@ export const BottomNav = memo<BottomNavProps>(({ onAddClick }) => {
 
   const activeNav = getActiveNav(activeScreen);
 
+  const handleNavClick = (id: ScreenType) => {
+    triggerLight();
+    setActiveScreen(id);
+  };
+
+  const handleAddClick = () => {
+    triggerMedium();
+    onAddClick();
+  };
+
   return (
     <nav className="bottom-nav">
       <div className="flex items-center justify-around px-4 py-2">
@@ -65,7 +77,7 @@ export const BottomNav = memo<BottomNavProps>(({ onAddClick }) => {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveScreen(item.id)}
+              onClick={() => handleNavClick(item.id)}
               className={`bottom-nav-item ${isActive ? 'active' : ''}`}
             >
               <Icon className="bottom-nav-item-icon" />
@@ -76,7 +88,7 @@ export const BottomNav = memo<BottomNavProps>(({ onAddClick }) => {
 
         {/* Center Add Button */}
         <button
-          onClick={onAddClick}
+          onClick={handleAddClick}
           className="w-14 h-14 -mt-6 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg active:opacity-80 transition-opacity"
         >
           <Plus className="w-7 h-7" />
@@ -89,7 +101,7 @@ export const BottomNav = memo<BottomNavProps>(({ onAddClick }) => {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveScreen(item.id)}
+              onClick={() => handleNavClick(item.id)}
               className={`bottom-nav-item ${isActive ? 'active' : ''}`}
             >
               <Icon className="bottom-nav-item-icon" />
