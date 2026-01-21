@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Bell, Check, Rocket, TrendingUp } from "lucide-react";
+import { ArrowLeft, Bell, Check, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { LangKey } from "@/lib/constants";
-import { Capacitor } from "@capacitor/core";
-import { PushNotifications } from "@capacitor/push-notifications";
-import { LocalNotifications } from "@capacitor/local-notifications";
-import { Haptics, ImpactStyle } from "@capacitor/haptics";
+import { useHaptic } from "@/hooks/useHaptic";
 
 interface OnboardingQuestionsProps {
   lang: LangKey;
@@ -102,6 +99,7 @@ const TRANSLATIONS = {
 };
 
 export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, onComplete, onSkip }) => {
+  const { triggerLight, triggerSuccess } = useHaptic();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<OnboardingAnswers>({
     financialFeeling: "",
@@ -114,18 +112,8 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
   const totalSteps = 5;
   const progress = ((step + 1) / totalSteps) * 100;
 
-  const triggerHaptic = async () => {
-    if (Capacitor.isNativePlatform()) {
-      try {
-        await Haptics.impact({ style: ImpactStyle.Light });
-      } catch (e) {
-        console.log("Haptic not available");
-      }
-    }
-  };
-
   const handleNext = () => {
-    triggerHaptic();
+    triggerLight();
     if (step < totalSteps - 1) {
       setStep(step + 1);
     } else {
@@ -134,19 +122,19 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
   };
 
   const handleBack = () => {
-    triggerHaptic();
+    triggerLight();
     if (step > 0) {
       setStep(step - 1);
     }
   };
 
   const handleFeelingSelect = (id: string) => {
-    triggerHaptic();
+    triggerLight();
     setAnswers({ ...answers, financialFeeling: id });
   };
 
   const handleSpendingToggle = (id: string) => {
-    triggerHaptic();
+    triggerLight();
     const current = answers.spendingOn;
     if (current.includes(id)) {
       setAnswers({ ...answers, spendingOn: current.filter((x) => x !== id) });
@@ -156,36 +144,18 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
   };
 
   const handleHabitSelect = (id: string) => {
-    triggerHaptic();
+    triggerLight();
     setAnswers({ ...answers, habitStrength: id });
   };
 
   const handleEnableNotifications = async () => {
-    triggerHaptic();
-    if (Capacitor.isNativePlatform()) {
+    triggerSuccess();
+    // Request notification permissions via browser API as fallback
+    if ('Notification' in window && Notification.permission === 'default') {
       try {
-        const permResult = await PushNotifications.requestPermissions();
-        if (permResult.receive === "granted") {
-          await PushNotifications.register();
-          setAnswers({ ...answers, notificationsEnabled: true });
-          
-          // Schedule daily reminder
-          await LocalNotifications.schedule({
-            notifications: [
-              {
-                title: "MonEx",
-                body: lang === "ru" ? "Не забудьте записать расходы!" : lang === "uz" ? "Xarajatlarni yozishni unutmang!" : "Don't forget to record your expenses!",
-                id: 1,
-                schedule: {
-                  on: { hour: parseInt(answers.reminderTime.split(":")[0]), minute: 0 },
-                  repeats: true,
-                },
-              },
-            ],
-          });
-        }
+        await Notification.requestPermission();
       } catch (e) {
-        console.error("Notification permission error:", e);
+        console.log('Notification permission error');
       }
     }
     setAnswers({ ...answers, notificationsEnabled: true });
@@ -306,7 +276,7 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
                 <button
                   key={time.id}
                   onClick={() => {
-                    triggerHaptic();
+                    triggerLight();
                     setAnswers({ ...answers, reminderTime: time.time });
                   }}
                   className={`w-full p-3 rounded-xl border-2 transition-all ${
