@@ -24,7 +24,7 @@ const Privacy: React.FC = () => {
         <div className="space-y-6 text-foreground/90">
           <section>
             <h2 className="text-xl font-semibold mb-3">1. Information We Collect</h2>
-            <p className="mb-2">MonEX collects the following types of information:</p>
+            <p className="mb-2">Mylo collects the following types of information:</p>
             <ul className="list-disc list-inside space-y-1 ml-4">
               <li><strong>Account Information:</strong> Email address, name (optional), and password when you create an account</li>
               <li><strong>Financial Data:</strong> Transactions, income, expenses, budgets, and goals you enter into the app</li>
@@ -36,7 +36,7 @@ const Privacy: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">2. How We Use Your Information</h2>
             <ul className="list-disc list-inside space-y-1 ml-4">
-              <li>To provide and maintain the MonEX service</li>
+              <li>To provide and maintain the Mylo service</li>
               <li>To sync your financial data across devices</li>
               <li>To provide AI-powered insights and recommendations</li>
               <li>To send notifications about budgets, goals, and spending patterns</li>
@@ -59,7 +59,7 @@ const Privacy: React.FC = () => {
           
           <section>
             <h2 className="text-xl font-semibold mb-3">4. Third-Party Services</h2>
-            <p className="mb-2">MonEX uses the following third-party services:</p>
+            <p className="mb-2">Mylo uses the following third-party services:</p>
             <ul className="list-disc list-inside space-y-1 ml-4">
               <li><strong>Supabase:</strong> For authentication and data storage</li>
               <li><strong>Google OAuth:</strong> For optional Google sign-in</li>
@@ -89,7 +89,7 @@ const Privacy: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">7. Children's Privacy</h2>
             <p>
-              MonEX is not intended for children under 13. We do not knowingly collect 
+              Mylo is not intended for children under 13. We do not knowingly collect 
               personal information from children under 13.
             </p>
           </section>
