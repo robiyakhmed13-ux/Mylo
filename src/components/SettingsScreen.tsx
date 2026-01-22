@@ -8,7 +8,8 @@ import {
   ArrowLeft, RefreshCw, FileSpreadsheet, Zap, Trash2,
   Sun, Moon, Monitor, Cloud, User, HelpCircle,
   CreditCard, GraduationCap, ChevronRight, Star, Share2,
-  LogIn, LogOut, Mail, MessageCircle, Link2, Unlink, ExternalLink, Copy, Check
+  LogIn, LogOut, Mail, MessageCircle, Link2, Unlink, ExternalLink, Copy, Check,
+  Vibrate, Bell
 } from "lucide-react";
 
 export const SettingsScreen = memo(() => {
@@ -43,8 +44,8 @@ export const SettingsScreen = memo(() => {
   };
   
   const doResetOnboarding = () => {
-    localStorage.removeItem("hamyon_onboarding");
-    localStorage.removeItem("hamyon_quickAdds");
+    localStorage.removeItem("mylo_onboarding");
+    localStorage.removeItem("mylo_quickAdds");
     setOnboardingComplete(false);
     setCustomizeOpen(false);
     window.location.reload();
@@ -60,7 +61,7 @@ export const SettingsScreen = memo(() => {
     });
   };
   
-  const BOT_USERNAME = "hamyon_uz_aibot";
+  const BOT_USERNAME = "mylo_uz_aibot";
   
   const openBot = () => {
     if (window.Telegram?.WebApp?.openTelegramLink) {
@@ -274,6 +275,11 @@ export const SettingsScreen = memo(() => {
             label={t.currency}
             value={getCurrentCurrencySymbol()}
             onClick={() => setShowCurrency(true)}
+          />
+          <MenuItem 
+            icon={<Vibrate className="w-5 h-5" />}
+            label={lang === "ru" ? "Вибрация и уведомления" : lang === "uz" ? "Tebranish va bildirishnomalar" : "Haptics & Notifications"}
+            onClick={() => setActiveScreen("haptic-settings" as any)}
             isLast
           />
         </div>
