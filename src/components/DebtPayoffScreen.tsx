@@ -9,7 +9,7 @@ import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, BarChart, 
 
 export const DebtPayoffScreen = memo(() => {
   const { lang, currency, setActiveScreen, showToast } = useApp();
-  const [debts, setDebts] = useState<DebtItem[]>(() => safeJSON.get("hamyon_debts", []));
+  const [debts, setDebts] = useState<DebtItem[]>(() => safeJSON.get("mylo_debts", []));
   const [strategy, setStrategy] = useState<"snowball" | "avalanche">("avalanche");
   const [extraPayment, setExtraPayment] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
@@ -52,7 +52,7 @@ export const DebtPayoffScreen = memo(() => {
 
   const saveDebts = (newDebts: DebtItem[]) => {
     setDebts(newDebts);
-    safeJSON.set("hamyon_debts", newDebts);
+    safeJSON.set("mylo_debts", newDebts);
   };
 
   const handleAddDebt = () => {
