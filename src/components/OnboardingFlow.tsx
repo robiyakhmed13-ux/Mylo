@@ -8,6 +8,7 @@ import { formatUZS } from "@/lib/storage";
 import { CURRENCIES } from "@/lib/exportData";
 import { DEFAULT_CATEGORIES, Category, LangKey } from "@/lib/constants";
 import { CategoryIcon } from "@/components/CategoryIcon";
+import { OnboardingQuestions, OnboardingAnswers } from "@/components/OnboardingQuestions";
 import { 
   Globe, Palette, Sun, Moon, Monitor, Check, Sparkles, 
   ArrowRight, ArrowLeft, Wallet, TrendingUp, Bell, Shield,
@@ -21,7 +22,7 @@ interface OnboardingFlowProps {
 }
 
 type AuthStep = 'features' | 'auth-choice' | 'login' | 'register' | 'verify-code' | 'create-pin' | 'biometric' | 'complete';
-type OnboardingStep = 'welcome' | 'lang' | 'currency' | 'theme' | 'quickadd' | 'auth' | 'done';
+type OnboardingStep = 'welcome' | 'lang' | 'currency' | 'theme' | 'quickadd' | 'questions' | 'auth' | 'done';
 
 export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const appContext = useApp();
@@ -29,9 +30,10 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
   const setCurrencyFn = appContext.setCurrency;
 
   // Onboarding state
-  const [currentFlow, setCurrentFlow] = useState<'onboarding' | 'auth'>('onboarding');
+  const [currentFlow, setCurrentFlow] = useState<'onboarding' | 'questions' | 'auth'>('onboarding');
   const [step, setStep] = useState(0);
   const [featureIndex, setFeatureIndex] = useState(0);
+  const [onboardingAnswers, setOnboardingAnswers] = useState<OnboardingAnswers | null>(null);
   
   // Auth state
   const [authStep, setAuthStep] = useState<AuthStep>('features');
@@ -106,7 +108,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
   const t = useMemo(() => {
     const copy = {
       uz: {
-        welcomeTitle: "MonEx",
+        welcomeTitle: "Mylo",
         welcomeSubtitle: "Sizning moliyaviy yordamchingiz",
         chooseLang: "Tilni tanlang",
         chooseCurrency: "Valyutani tanlang",
@@ -160,7 +162,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
         selectedHint: (n: number) => `Tanlandi: ${n}. Summani o'zgartirish uchun bosing`,
       },
       ru: {
-        welcomeTitle: "MonEx",
+        welcomeTitle: "Mylo",
         welcomeSubtitle: "Ваш финансовый помощник",
         chooseLang: "Выберите язык",
         chooseCurrency: "Выберите валюту",
@@ -214,7 +216,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
         selectedHint: (n: number) => `Выбрано: ${n}. Нажмите выбранный, чтобы изменить сумму`,
       },
       en: {
-        welcomeTitle: "MonEx",
+        welcomeTitle: "Mylo",
         welcomeSubtitle: "Your smart financial assistant",
         chooseLang: "Choose language",
         chooseCurrency: "Choose your currency",
@@ -263,7 +265,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
         enableBiometric: "Enable biometrics",
         congrats: "Congratulations!",
         accountCreated: "Your account was successfully created",
-        startUsing: "Start using MonEx",
+        startUsing: "Start using Mylo",
         pinMismatch: "PINs do not match",
         selectedHint: (n: number) => `Selected: ${n}. Tap a selected one to edit amount`,
       },
@@ -533,12 +535,12 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
   };
 
   const handleComplete = () => {
-    localStorage.setItem("hamyon_theme", selectedTheme);
-    localStorage.setItem("hamyon_quickAdds", JSON.stringify(quickAdds));
-    localStorage.setItem("hamyon_currency", selectedCurrency);
-    localStorage.setItem("hamyon_categories", JSON.stringify(customCategories));
-    localStorage.setItem("hamyon_onboarding", "complete");
-    localStorage.setItem("hamyon_lang", selectedLang);
+    localStorage.setItem("mylo_theme", selectedTheme);
+    localStorage.setItem("mylo_quickAdds", JSON.stringify(quickAdds));
+    localStorage.setItem("mylo_currency", selectedCurrency);
+    localStorage.setItem("mylo_categories", JSON.stringify(customCategories));
+    localStorage.setItem("mylo_onboarding", "complete");
+    localStorage.setItem("mylo_lang", selectedLang);
     localStorage.setItem("monex_onboarded", "true");
     setLang(selectedLang);
     setCurrencyFn(selectedCurrency);
@@ -1236,7 +1238,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
           <button onClick={() => setStep(0)} className="p-2 text-muted-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <p className="font-semibold text-foreground">MonEx</p>
+          <p className="font-semibold text-foreground">Mylo</p>
           <div className="w-9" />
         </div>
         {renderProgress()}
@@ -1292,7 +1294,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
           <button onClick={() => setStep(1)} className="p-2 text-muted-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <p className="font-semibold text-foreground">MonEx</p>
+          <p className="font-semibold text-foreground">Mylo</p>
           <div className="w-9" />
         </div>
         {renderProgress()}
@@ -1352,7 +1354,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
           <button onClick={() => setStep(2)} className="p-2 text-muted-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <p className="font-semibold text-foreground">MonEx</p>
+          <p className="font-semibold text-foreground">Mylo</p>
           <div className="w-9" />
         </div>
         {renderProgress()}
@@ -1431,8 +1433,8 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
           <button onClick={() => setStep(3)} className="p-2 text-muted-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <p className="font-semibold text-foreground">MonEx</p>
-          <button onClick={() => { setCurrentFlow('auth'); setAuthStep('features'); }} className="text-sm text-primary font-medium">
+          <p className="font-semibold text-foreground">Mylo</p>
+          <button onClick={() => { setCurrentFlow('questions'); }} className="text-sm text-primary font-medium">
             {t.skip}
           </button>
         </div>
@@ -1512,7 +1514,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
 
         <div className="mt-6">
           <Button 
-            onClick={() => { setCurrentFlow('auth'); setAuthStep('features'); }} 
+            onClick={() => { setCurrentFlow('questions'); }} 
             className="w-full h-13 rounded-2xl text-base font-semibold"
           >
             {t.next}
@@ -1537,9 +1539,30 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
     );
   };
 
+  // Handle onboarding questions completion
+  const handleQuestionsComplete = (answers: OnboardingAnswers) => {
+    setOnboardingAnswers(answers);
+    // Save answers to local storage for later sync
+    localStorage.setItem('mylo_onboarding_answers', JSON.stringify(answers));
+    setCurrentFlow('auth');
+    setAuthStep('features');
+  };
+
+  const handleQuestionsSkip = () => {
+    setCurrentFlow('auth');
+    setAuthStep('features');
+  };
+
   return (
     <div className="fixed inset-0 bg-background z-50 overflow-hidden">
-      {currentFlow === 'onboarding' ? renderOnboardingSteps() : renderAuthFlow()}
+      {currentFlow === 'onboarding' ? renderOnboardingSteps() : 
+       currentFlow === 'questions' ? (
+         <OnboardingQuestions 
+           lang={selectedLang}
+           onComplete={handleQuestionsComplete}
+           onSkip={handleQuestionsSkip}
+         />
+       ) : renderAuthFlow()}
     </div>
   );
 };
