@@ -6,6 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { LangKey } from "@/lib/constants";
 import { useHaptic } from "@/hooks/useHaptic";
+import { Capacitor } from "@capacitor/core";
+import { LocalNotifications } from "@capacitor/local-notifications";
 
 interface OnboardingQuestionsProps {
   lang: LangKey;
@@ -101,6 +103,7 @@ const TRANSLATIONS = {
 export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, onComplete, onSkip }) => {
   const { triggerLight, triggerSuccess } = useHaptic();
   const [step, setStep] = useState(0);
+  const [isEnablingNotifications, setIsEnablingNotifications] = useState(false);
   const [answers, setAnswers] = useState<OnboardingAnswers>({
     financialFeeling: "",
     spendingOn: [],
@@ -149,15 +152,80 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
   };
 
   const handleEnableNotifications = async () => {
+    setIsEnablingNotifications(true);
     triggerSuccess();
-    // Request notification permissions via browser API as fallback
-    if ('Notification' in window && Notification.permission === 'default') {
-      try {
-        await Notification.requestPermission();
-      } catch (e) {
-        console.log('Notification permission error');
+    
+    try {
+      // Check if running on native platform
+      if (Capacitor.isNativePlatform()) {
+        // Request permission for native notifications
+        const permResult = await LocalNotifications.requestPermissions();
+        
+        if (permResult.display === 'granted') {
+          // Parse the selected time
+          const [hours, minutes] = answers.reminderTime.split(':').map(Number);
+          
+          // Schedule daily reminder notification
+          const now = new Date();
+          const scheduledTime = new Date();
+          scheduledTime.setHours(hours, minutes, 0, 0);
+          
+          // If the time has passed today, schedule for tomorrow
+          if (scheduledTime <= now) {
+            scheduledTime.setDate(scheduledTime.getDate() + 1);
+          }
+          
+          await LocalNotifications.schedule({
+            notifications: [
+              {
+                title: lang === 'ru' ? '💰 Время проверить расходы!' : 
+                       lang === 'uz' ? '💰 Xarajatlarni tekshirish vaqti!' : 
+                       '💰 Time to check your expenses!',
+                body: lang === 'ru' ? 'Добавьте сегодняшние траты в Mylo' :
+                      lang === 'uz' ? 'Bugungi xarajatlarni Mylo ga qo\'shing' :
+                      'Add today\'s spending to Mylo',
+                id: 1001,
+                schedule: {
+                  at: scheduledTime,
+                  repeats: true,
+                  every: 'day',
+                },
+                channelId: 'daily-reminder',
+              },
+            ],
+          });
+          
+          // Save notification settings to localStorage
+          localStorage.setItem('mylo_notification_settings', JSON.stringify({
+            dailyReminderEnabled: true,
+            dailyReminderTime: answers.reminderTime,
+            overspendingAlertEnabled: true,
+          }));
+        }
+      } else {
+        // Web fallback - request browser notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+          await Notification.requestPermission();
+        }
+        
+        // Save settings even for web (for when user opens native app later)
+        localStorage.setItem('mylo_notification_settings', JSON.stringify({
+          dailyReminderEnabled: true,
+          dailyReminderTime: answers.reminderTime,
+          overspendingAlertEnabled: true,
+        }));
       }
+    } catch (e) {
+      console.log('Notification setup error:', e);
+      // Still save the preference even if permission fails
+      localStorage.setItem('mylo_notification_settings', JSON.stringify({
+        dailyReminderEnabled: true,
+        dailyReminderTime: answers.reminderTime,
+        overspendingAlertEnabled: true,
+      }));
     }
+    
+    setIsEnablingNotifications(false);
     setAnswers({ ...answers, notificationsEnabled: true });
     handleNext();
   };
@@ -292,10 +360,23 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
 
             <Button 
               onClick={handleEnableNotifications} 
-              className="w-full h-14 text-lg bg-emerald-500 hover:bg-emerald-600 text-white"
+              disabled={isEnablingNotifications}
+              className="w-full h-14 text-lg bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-70"
             >
-              <Bell className="w-5 h-5 mr-2" />
-              {TRANSLATIONS.enableNotifications[lang]}
+              {isEnablingNotifications ? (
+                <>
+                  <svg className="animate-spin w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  {lang === 'ru' ? 'Включение...' : lang === 'uz' ? 'Yoqilmoqda...' : 'Enabling...'}
+                </>
+              ) : (
+                <>
+                  <Bell className="w-5 h-5 mr-2" />
+                  {TRANSLATIONS.enableNotifications[lang]}
+                </>
+              )}
             </Button>
           </motion.div>
         );
