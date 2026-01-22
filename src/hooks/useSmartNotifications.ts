@@ -12,16 +12,16 @@ export const useSmartNotifications = () => {
   } = useApp();
   
   const [notifications, setNotifications] = useState<SmartNotification[]>(() => 
-    safeJSON.get("hamyon_notifications", [])
+    safeJSON.get("mylo_notifications", [])
   );
   
   // Get subscriptions and recurring transactions - read inside effects to avoid hook ordering issues
-  const getSubscriptions = useCallback(() => safeJSON.get<Subscription[]>("hamyon_subscriptions", []), []);
-  const getRecurring = useCallback(() => safeJSON.get<RecurringTransaction[]>("hamyon_recurring", []), []);
+  const getSubscriptions = useCallback(() => safeJSON.get<Subscription[]>("mylo_subscriptions", []), []);
+  const getRecurring = useCallback(() => safeJSON.get<RecurringTransaction[]>("mylo_recurring", []), []);
   
   // Save notifications to storage
   useEffect(() => {
-    safeJSON.set("hamyon_notifications", notifications);
+    safeJSON.set("mylo_notifications", notifications);
   }, [notifications]);
 
   // Add notification helper
