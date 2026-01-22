@@ -1,4 +1,4 @@
-// Real-time sync between MonEX app and Telegram bot
+// Real-time sync between Mylo app and Telegram bot
 import { createClient, RealtimeChannel } from '@supabase/supabase-js';
 import { Transaction } from '@/types';
 
@@ -211,7 +211,7 @@ ${this.formatAmount(transaction.amount)} UZS`;
 📈 Top category: ${data.topCategory.name} (${this.formatAmount(data.topCategory.amount)})
 📝 Transactions: ${data.transactionCount}
 
-Open MonEX app for details`;
+Open Mylo app for details`;
 
     try {
       await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -291,13 +291,13 @@ ${percentComplete >= 100 ? '🎉 Goal achieved! Congratulations!' : `Keep going!
 
   // Generate deep link for Telegram bot
   getTelegramBotLink(): string {
-    const botUsername = 'hamyon_uz_aibot'; // Your actual bot
+    const botUsername = 'mylo_uz_aibot'; // Your actual bot
     return `https://t.me/${botUsername}`;
   }
 
   // Generate linking QR code URL
   getLinkingQRCodeUrl(linkCode: string): string {
-    const botUsername = 'hamyon_uz_aibot';
+    const botUsername = 'mylo_uz_aibot';
     return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://t.me/${botUsername}?start=${linkCode}`;
   }
 
