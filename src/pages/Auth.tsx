@@ -191,7 +191,7 @@ const Auth: React.FC = () => {
           <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Wallet className="w-10 h-10 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">MonEX</h1>
+          <h1 className="text-3xl font-bold text-foreground">Mylo</h1>
           <p className="text-muted-foreground mt-1">Your Financial Companion</p>
         </motion.div>
 
