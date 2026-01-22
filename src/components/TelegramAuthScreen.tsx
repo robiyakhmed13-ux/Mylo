@@ -99,7 +99,7 @@ export const TelegramAuthScreen: React.FC<TelegramAuthScreenProps> = ({
           </p>
 
           <a
-            href="https://t.me/hamyon_uz_aibot"
+            href="https://t.me/mylo_uz_aibot"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0088cc] text-white font-medium hover:bg-[#0088cc]/90 transition-colors"
@@ -156,7 +156,7 @@ export const TelegramAuthScreen: React.FC<TelegramAuthScreenProps> = ({
           <Wallet className="w-10 h-10 text-primary-foreground" />
         </div>
         
-        <h1 className="text-2xl font-bold text-foreground mb-2">MonEX</h1>
+        <h1 className="text-2xl font-bold text-foreground mb-2">Mylo</h1>
         <p className="text-muted-foreground mb-8">Authenticating with Telegram...</p>
         
         <motion.div
