@@ -163,7 +163,7 @@ const LEARN_TRANSLATIONS: Record<string, Record<string, string>> = {
     learnInvestingBasics: "Investitsiya asoslari",
     learnInvestingBasicsContent: "Investitsiya - pulni ishga solish:\n\nTurlari:\n• Aksiyalar - kompaniya ulushi\n• Obligatsiyalar - qarz berish\n• Ko'chmas mulk - uy, er\n• Jamg'arma fondlar - diversifikatsiya\n\nQoidalar:\n1. Avval favqulodda fond yarating\n2. Faqat yo'qotishga tayyor pulni investing qiling\n3. Diversifikatsiya - turli sohalarga tarqating\n4. Uzoq muddatli o'ylang\n5. Muntazam investing qiling\n\nXavf va daromad: Yuqori daromad = yuqori xavf.",
     learnTrackExpenses: "Xarajatlarni kuzatish",
-    learnTrackExpensesContent: "Nega kuzatish kerak:\n• Pulingiz qayerga ketayotganini bilasiz\n• Ortiqcha xarajatlarni topasiz\n• Byudjetni boshqara olasiz\n\nQanday kuzatish:\n1. Har bir xarajatni darhol yozing\n2. Kategoriyalarga ajrating\n3. Haftalik tahlil qiling\n4. Oylik hisobot tuzing\n\nMaslahatlar:\n• Ilovadan foydalaning (MonEx!)\n• Ovozli kiritish tez va qulay\n• Naqd pul xarajatlarini unutmang",
+    learnTrackExpensesContent: "Nega kuzatish kerak:\n• Pulingiz qayerga ketayotganini bilasiz\n• Ortiqcha xarajatlarni topasiz\n• Byudjetni boshqara olasiz\n\nQanday kuzatish:\n1. Har bir xarajatni darhol yozing\n2. Kategoriyalarga ajrating\n3. Haftalik tahlil qiling\n4. Oylik hisobot tuzing\n\nMaslahatlar:\n• Ilovadan foydalaning (Mylo!)\n• Ovozli kiritish tez va qulay\n• Naqd pul xarajatlarini unutmang",
     learnFinancialGoals: "Moliyaviy maqsadlar",
     learnFinancialGoalsContent: "SMART maqsadlar qo'ying:\n\n• Specific - Aniq: \"Yangi iPhone\" emas \"Telefon\"\n• Measurable - O'lchovli: 15 million so'm\n• Achievable - Erishish mumkin\n• Relevant - Siz uchun muhim\n• Time-bound - Muddatli: 12 oy ichida\n\nMaqsadlar ierarxiyasi:\n1. Qarzlarni to'lash\n2. Favqulodda fond\n3. Qisqa muddatli maqsadlar\n4. Uzoq muddatli investitsiyalar\n\nHar bir maqsadni kichik qadamlarga bo'ling.",
   },
@@ -198,7 +198,7 @@ const LEARN_TRANSLATIONS: Record<string, Record<string, string>> = {
     learnInvestingBasics: "Основы инвестирования",
     learnInvestingBasicsContent: "Инвестирование - заставить деньги работать:\n\nВиды:\n• Акции - доля в компании\n• Облигации - дать в долг\n• Недвижимость - дом, земля\n• Фонды - диверсификация\n\nПравила:\n1. Сначала создайте резервный фонд\n2. Инвестируйте только деньги, которые готовы потерять\n3. Диверсификация - распределяйте по разным секторам\n4. Думайте долгосрочно\n5. Инвестируйте регулярно\n\nРиск и доход: Высокий доход = высокий риск.",
     learnTrackExpenses: "Отслеживание расходов",
-    learnTrackExpensesContent: "Зачем отслеживать:\n• Знаете куда уходят деньги\n• Находите лишние расходы\n• Можете управлять бюджетом\n\nКак отслеживать:\n1. Записывайте каждый расход сразу\n2. Распределяйте по категориям\n3. Анализируйте еженедельно\n4. Составляйте месячный отчёт\n\nСоветы:\n• Используйте приложение (MonEx!)\n• Голосовой ввод быстрый и удобный\n• Не забывайте про наличные расходы",
+    learnTrackExpensesContent: "Зачем отслеживать:\n• Знаете куда уходят деньги\n• Находите лишние расходы\n• Можете управлять бюджетом\n\nКак отслеживать:\n1. Записывайте каждый расход сразу\n2. Распределяйте по категориям\n3. Анализируйте еженедельно\n4. Составляйте месячный отчёт\n\nСоветы:\n• Используйте приложение (Mylo!)\n• Голосовой ввод быстрый и удобный\n• Не забывайте про наличные расходы",
     learnFinancialGoals: "Финансовые цели",
     learnFinancialGoalsContent: "Ставьте SMART цели:\n\n• Specific - Конкретные: \"Новый iPhone\" не \"Телефон\"\n• Measurable - Измеримые: 15 миллионов сум\n• Achievable - Достижимые\n• Relevant - Важные для вас\n• Time-bound - С дедлайном: за 12 месяцев\n\nИерархия целей:\n1. Погашение долгов\n2. Резервный фонд\n3. Краткосрочные цели\n4. Долгосрочные инвестиции\n\nРазбейте каждую цель на маленькие шаги.",
   },
@@ -233,13 +233,13 @@ const LEARN_TRANSLATIONS: Record<string, Record<string, string>> = {
     learnInvestingBasics: "Investing basics",
     learnInvestingBasicsContent: "Investing - making money work:\n\nTypes:\n• Stocks - company shares\n• Bonds - lending money\n• Real estate - property\n• Funds - diversification\n\nRules:\n1. First create an emergency fund\n2. Only invest money you can afford to lose\n3. Diversify - spread across different sectors\n4. Think long-term\n5. Invest regularly\n\nRisk and return: High return = high risk.",
     learnTrackExpenses: "Tracking expenses",
-    learnTrackExpensesContent: "Why track:\n• Know where money goes\n• Find unnecessary expenses\n• Can manage budget\n\nHow to track:\n1. Record each expense immediately\n2. Categorize them\n3. Analyze weekly\n4. Create monthly report\n\nTips:\n• Use an app (MonEx!)\n• Voice input is fast and convenient\n• Don't forget cash expenses",
+    learnTrackExpensesContent: "Why track:\n• Know where money goes\n• Find unnecessary expenses\n• Can manage budget\n\nHow to track:\n1. Record each expense immediately\n2. Categorize them\n3. Analyze weekly\n4. Create monthly report\n\nTips:\n• Use an app (Mylo!)\n• Voice input is fast and convenient\n• Don't forget cash expenses",
     learnFinancialGoals: "Financial goals",
     learnFinancialGoalsContent: "Set SMART goals:\n\n• Specific: \"New iPhone\" not \"Phone\"\n• Measurable: 15 million UZS\n• Achievable\n• Relevant - important to you\n• Time-bound: within 12 months\n\nGoal hierarchy:\n1. Pay off debts\n2. Emergency fund\n3. Short-term goals\n4. Long-term investments\n\nBreak each goal into small steps.",
   },
 };
 
-const STORAGE_KEY = "hamyon_learn_completed";
+const STORAGE_KEY = "mylo_learn_completed";
 
 export const LearnScreen: React.FC = () => {
   const { setActiveScreen, lang } = useApp();
