@@ -34,7 +34,7 @@ interface SubscriptionsScreenProps {
 export const SubscriptionsScreen = memo(({ openAddForm = false }: SubscriptionsScreenProps) => {
   const { lang, currency, showToast, setActiveScreen } = useApp();
   const [subscriptions, setSubscriptions] = useState<Subscription[]>(() => 
-    safeJSON.get("hamyon_subscriptions", [])
+    safeJSON.get("mylo_subscriptions", [])
   );
   const [showForm, setShowForm] = useState(openAddForm);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -127,13 +127,13 @@ export const SubscriptionsScreen = memo(({ openAddForm = false }: SubscriptionsS
     if (editingId) {
       setSubscriptions(prev => {
         const updated = prev.map(s => s.id === editingId ? subData : s);
-        safeJSON.set("hamyon_subscriptions", updated);
+        safeJSON.set("mylo_subscriptions", updated);
         return updated;
       });
     } else {
       setSubscriptions(prev => {
         const updated = [subData, ...prev];
-        safeJSON.set("hamyon_subscriptions", updated);
+        safeJSON.set("mylo_subscriptions", updated);
         return updated;
       });
     }
@@ -146,7 +146,7 @@ export const SubscriptionsScreen = memo(({ openAddForm = false }: SubscriptionsS
   const handleDelete = (id: string) => {
     setSubscriptions(prev => {
       const updated = prev.filter(s => s.id !== id);
-      safeJSON.set("hamyon_subscriptions", updated);
+      safeJSON.set("mylo_subscriptions", updated);
       return updated;
     });
     showToast("✓", true);
@@ -155,7 +155,7 @@ export const SubscriptionsScreen = memo(({ openAddForm = false }: SubscriptionsS
   const toggleActive = (id: string) => {
     setSubscriptions(prev => {
       const updated = prev.map(s => s.id === id ? { ...s, active: !s.active } : s);
-      safeJSON.set("hamyon_subscriptions", updated);
+      safeJSON.set("mylo_subscriptions", updated);
       return updated;
     });
   };
