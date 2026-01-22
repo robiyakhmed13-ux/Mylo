@@ -9,9 +9,9 @@ import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from "rec
 
 export const NetWorthScreen = memo(() => {
   const { lang, currency, setActiveScreen, balance, showToast } = useApp();
-  const [accounts, setAccounts] = useState<Account[]>(() => safeJSON.get("hamyon_accounts", []));
-  const [debts] = useState<DebtItem[]>(() => safeJSON.get("hamyon_debts", []));
-  const [history, setHistory] = useState<NetWorthSnapshot[]>(() => safeJSON.get("hamyon_netWorthHistory", []));
+  const [accounts, setAccounts] = useState<Account[]>(() => safeJSON.get("mylo_accounts", []));
+  const [debts] = useState<DebtItem[]>(() => safeJSON.get("mylo_debts", []));
+  const [history, setHistory] = useState<NetWorthSnapshot[]>(() => safeJSON.get("mylo_netWorthHistory", []));
   const [showAddAccount, setShowAddAccount] = useState(false);
   const [accountForm, setAccountForm] = useState({ name: "", balance: "", type: "bank" as Account["type"] });
 
@@ -70,7 +70,7 @@ export const NetWorthScreen = memo(() => {
       };
       const updated = [...history, snapshot].slice(-365); // Keep last year
       setHistory(updated);
-      safeJSON.set("hamyon_netWorthHistory", updated);
+      safeJSON.set("mylo_netWorthHistory", updated);
     }
   }, [totalAssets, totalLiabilities, netWorth, accounts, debts, history]);
 
@@ -96,7 +96,7 @@ export const NetWorthScreen = memo(() => {
   // Save accounts to storage
   const saveAccounts = (newAccounts: Account[]) => {
     setAccounts(newAccounts);
-    safeJSON.set("hamyon_accounts", newAccounts);
+    safeJSON.set("mylo_accounts", newAccounts);
   };
 
   // Handle adding new account
@@ -228,7 +228,7 @@ export const NetWorthScreen = memo(() => {
             </div>
             <div className="flex-1">
               <p className="text-body-medium text-foreground">{t.mainBalance}</p>
-              <p className="text-caption">Hamyon</p>
+              <p className="text-caption">Mylo</p>
             </div>
             <p className="text-body-medium text-income">+{formatCurrency(balance, currency)}</p>
           </div>
