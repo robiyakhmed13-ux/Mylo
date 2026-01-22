@@ -1,13 +1,13 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.robiyakhmedova.monex",
-  appName: "MonEx",
+  appId: "com.robiyakhmedova.mylo",
+  appName: "Mylo",
   webDir: "dist",
   android: {
     buildOptions: {
       keystorePath: "release-key.keystore",
-      keystoreAlias: "monex",
+      keystoreAlias: "mylo",
     },
   },
   plugins: {
