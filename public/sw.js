@@ -1,4 +1,4 @@
-const CACHE_NAME = 'monex-v2';
+const CACHE_NAME = 'mylo-v2';
 const OFFLINE_URL = '/';
 
 // Assets to cache on install
