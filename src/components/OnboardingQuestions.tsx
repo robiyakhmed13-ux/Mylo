@@ -78,24 +78,24 @@ const TRANSLATIONS = {
     uz: "🔔 Eslatmalarni yoqqan foydalanuvchilar 2 barobar izchilroq",
   },
   notificationDesc: {
-    en: "MonEx helps you build strong financial habits by reminding you to check in, track progress, and stay on track—just a few seconds a week.",
-    ru: "MonEx помогает формировать финансовые привычки, напоминая проверять расходы и следить за прогрессом — всего несколько секунд в неделю.",
-    uz: "MonEx sizga xarajatlarni tekshirish va taraqqiyotni kuzatishni eslatib, mustahkam moliyaviy odatlar shakllantirishga yordam beradi.",
+    en: "Mylo helps you build strong financial habits by reminding you to check in, track progress, and stay on track—just a few seconds a week.",
+    ru: "Mylo помогает формировать финансовые привычки, напоминая проверять расходы и следить за прогрессом — всего несколько секунд в неделю.",
+    uz: "Mylo sizga xarajatlarni tekshirish va taraqqiyotni kuzatishni eslatib, mustahkam moliyaviy odatlar shakllantirishga yordam beradi.",
   },
   goalTitle: {
-    en: "🚀 85% of users reach their goal with MonEx",
-    ru: "🚀 85% пользователей достигают целей с MonEx",
-    uz: "🚀 Foydalanuvchilarning 85% MonEx bilan maqsadiga erishadi",
+    en: "🚀 85% of users reach their goal with Mylo",
+    ru: "🚀 85% пользователей достигают целей с Mylo",
+    uz: "🚀 Foydalanuvchilarning 85% Mylo bilan maqsadiga erishadi",
   },
   goalDesc: {
-    en: "Whether your goal is keeping your finances under control, improving spending habits or saving up for a vacation, MonEx is here for you.",
-    ru: "Будь то контроль финансов, улучшение привычек трат или накопления на отпуск — MonEx поможет вам.",
-    uz: "Maqsadingiz moliyani nazorat qilish, xarajat odatlarini yaxshilash yoki ta'tilga pul yig'ish bo'ladimi — MonEx siz bilan.",
+    en: "Whether your goal is keeping your finances under control, improving spending habits or saving up for a vacation, Mylo is here for you.",
+    ru: "Будь то контроль финансов, улучшение привычек трат или накопления на отпуск — Mylo поможет вам.",
+    uz: "Maqsadingiz moliyani nazorat qilish, xarajat odatlarini yaxshilash yoki ta'tilga pul yig'ish bo'ladimi — Mylo siz bilan.",
   },
   selectTime: { en: "Choose reminder time:", ru: "Выберите время напоминания:", uz: "Eslatma vaqtini tanlang:" },
   savingsGrowth: { en: "Savings Growth", ru: "Рост сбережений", uz: "Jamg'armalar o'sishi" },
-  withMonex: { en: "With MonEx", ru: "С MonEx", uz: "MonEx bilan" },
-  withoutMonex: { en: "Without MonEx", ru: "Без MonEx", uz: "MonExsiz" },
+  withMylo: { en: "With Mylo", ru: "С Mylo", uz: "Mylo bilan" },
+  withoutMylo: { en: "Without Mylo", ru: "Без Mylo", uz: "Mylosiz" },
 };
 
 export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, onComplete, onSkip }) => {
@@ -307,9 +307,9 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
             <div className="w-full bg-card rounded-2xl p-4 border border-border shadow-lg">
               <h3 className="text-left font-semibold text-foreground mb-4">{TRANSLATIONS.savingsGrowth[lang]}</h3>
               <div className="relative h-32">
-                {/* MonEx line (green, going up) */}
+                {/* Mylo line (green, going up) */}
                 <svg className="w-full h-full" viewBox="0 0 200 80">
-                  {/* Without MonEx line */}
+                  {/* Without Mylo line */}
                   <path
                     d="M 10 60 Q 50 55 80 58 T 130 62 T 190 65"
                     fill="none"
@@ -317,7 +317,7 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
                     strokeWidth="2"
                     strokeDasharray="4,4"
                   />
-                  {/* With MonEx line */}
+                  {/* With Mylo line */}
                   <path
                     d="M 10 65 Q 40 50 70 45 T 120 30 T 180 15"
                     fill="none"
@@ -331,11 +331,11 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
                 <div className="absolute top-4 right-4 flex flex-col gap-1 text-xs">
                   <span className="flex items-center gap-1 text-primary">
                     <span className="w-2 h-2 rounded-full bg-primary" />
-                    {TRANSLATIONS.withMonex[lang]}
+                    {TRANSLATIONS.withMylo[lang]}
                   </span>
                   <span className="flex items-center gap-1 text-muted-foreground">
                     <span className="w-2 h-2 rounded-full bg-muted-foreground" />
-                    {TRANSLATIONS.withoutMonex[lang]}
+                    {TRANSLATIONS.withoutMylo[lang]}
                   </span>
                 </div>
               </div>
