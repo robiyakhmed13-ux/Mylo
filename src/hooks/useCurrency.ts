@@ -18,11 +18,11 @@ const EXCHANGE_API = "https://open.er-api.com/v6/latest/USD";
 
 export const useCurrency = () => {
   const [baseCurrency, setBaseCurrencyState] = useState<string>(() => 
-    safeJSON.get("hamyon_baseCurrency", "UZS")
+    safeJSON.get("mylo_baseCurrency", "UZS")
   );
   const [currencies, setCurrencies] = useState<Currency[]>(DEFAULT_CURRENCIES);
   const [exchangeRates, setExchangeRates] = useState<ExchangeRates | null>(() =>
-    safeJSON.get("hamyon_exchangeRates", null)
+    safeJSON.get("mylo_exchangeRates", null)
   );
   const [loading, setLoading] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export const useCurrency = () => {
           lastUpdated: new Date().toISOString(),
         };
         setExchangeRates(rates);
-        safeJSON.set("hamyon_exchangeRates", rates);
+        safeJSON.set("mylo_exchangeRates", rates);
         
         // Update currency rates based on USD
         const uzsRate = data.rates.UZS || 12850;
@@ -51,7 +51,7 @@ export const useCurrency = () => {
           rate: curr.code === "UZS" ? 1 : Math.round(uzsRate / (data.rates[curr.code] || 1)),
         }));
         setCurrencies(updatedCurrencies);
-        safeJSON.set("hamyon_currencies", updatedCurrencies);
+        safeJSON.set("mylo_currencies", updatedCurrencies);
       }
     } catch (error) {
       console.error("Failed to fetch exchange rates:", error);
@@ -76,7 +76,7 @@ export const useCurrency = () => {
 
   const setBaseCurrency = useCallback((code: string) => {
     setBaseCurrencyState(code);
-    safeJSON.set("hamyon_baseCurrency", code);
+    safeJSON.set("mylo_baseCurrency", code);
   }, []);
 
   // Convert amount from one currency to another
