@@ -116,7 +116,7 @@ export const ReportsScreen = memo(() => {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Hamyon - ${title}</title>
+        <title>Mylo - ${title}</title>
         <style>
           body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
           h1 { color: #333; border-bottom: 2px solid #007AFF; padding-bottom: 10px; }
@@ -133,7 +133,7 @@ export const ReportsScreen = memo(() => {
         </style>
       </head>
       <body>
-        <h1>📊 Hamyon - ${lang === "uz" ? "Moliyaviy Hisobot" : lang === "ru" ? "Финансовый Отчёт" : "Financial Report"}</h1>
+        <h1>📊 Mylo - ${lang === "uz" ? "Moliyaviy Hisobot" : lang === "ru" ? "Финансовый Отчёт" : "Financial Report"}</h1>
         <p>${title}</p>
         
         <div class="stats">
@@ -166,7 +166,7 @@ export const ReportsScreen = memo(() => {
         </div>
         
         <div class="footer">
-          ${lang === "uz" ? "Hamyon - Moliyaviy yordamchi" : lang === "ru" ? "Hamyon - Финансовый помощник" : "Hamyon - Financial Assistant"} • ${new Date().toLocaleDateString()}
+          ${lang === "uz" ? "Mylo - Moliyaviy yordamchi" : lang === "ru" ? "Mylo - Финансовый помощник" : "Mylo - Financial Assistant"} • ${new Date().toLocaleDateString()}
         </div>
       </body>
       </html>
