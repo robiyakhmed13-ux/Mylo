@@ -16,7 +16,7 @@ const ENVELOPE_EMOJIS = ["🏠", "🍔", "🚗", "🎬", "🛒", "💊", "✈️
 export const EnvelopesScreen = memo(() => {
   const { lang, currency, showToast, setActiveScreen, transactions, allCats, catLabel, getCat } = useApp();
   const [envelopes, setEnvelopes] = useState<BudgetEnvelope[]>(() => 
-    safeJSON.get("hamyon_envelopes", [])
+    safeJSON.get("mylo_envelopes", [])
   );
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -125,13 +125,13 @@ export const EnvelopesScreen = memo(() => {
     if (editingId) {
       setEnvelopes(prev => {
         const updated = prev.map(e => e.id === editingId ? envelopeData : e);
-        safeJSON.set("hamyon_envelopes", updated);
+        safeJSON.set("mylo_envelopes", updated);
         return updated;
       });
     } else {
       setEnvelopes(prev => {
         const updated = [envelopeData, ...prev];
-        safeJSON.set("hamyon_envelopes", updated);
+        safeJSON.set("mylo_envelopes", updated);
         return updated;
       });
     }
@@ -144,7 +144,7 @@ export const EnvelopesScreen = memo(() => {
   const handleDelete = (id: string) => {
     setEnvelopes(prev => {
       const updated = prev.filter(e => e.id !== id);
-      safeJSON.set("hamyon_envelopes", updated);
+      safeJSON.set("mylo_envelopes", updated);
       return updated;
     });
     showToast("✓", true);
