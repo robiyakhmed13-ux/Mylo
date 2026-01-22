@@ -178,7 +178,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // Helper function to detect language from various sources
   const detectLanguage = (): LangKey => {
     // 1. Check localStorage first
-    const saved = safeJSON.get("monex_lang", null);
+    const saved = safeJSON.get("mylo_lang", null);
     if (saved && (saved === 'en' || saved === 'ru' || saved === 'uz')) {
       return saved as LangKey;
     }
@@ -207,7 +207,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // Wrapper for setLang that also persists and syncs
   const setLang = useCallback((newLang: LangKey) => {
     setLangState(newLang);
-    safeJSON.set("monex_lang", newLang);
+    safeJSON.set("mylo_lang", newLang);
     
     // Sync to Supabase profile (non-blocking, don't wait)
     if (isAuthenticated && user?.id) {
@@ -229,44 +229,44 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   
   const [tgUser, setTgUser] = useState<TelegramUser | null>(null);
   const [remoteOk, setRemoteOk] = useState(false);
-  const [dataMode, setDataMode] = useState(() => safeJSON.get("hamyon_dataMode", "auto"));
+  const [dataMode, setDataMode] = useState(() => safeJSON.get("mylo_dataMode", "auto"));
   
-  const [balance, setBalance] = useState(() => safeJSON.get("hamyon_balance", 0));
-  const [transactions, setTransactions] = useState<Transaction[]>(() => safeJSON.get("hamyon_transactions", []));
-  const [limits, setLimits] = useState<Limit[]>(() => safeJSON.get("hamyon_limits", []));
-  const [goals, setGoals] = useState<Goal[]>(() => safeJSON.get("hamyon_goals", []));
-  const [categories, setCategories] = useState(() => safeJSON.get("hamyon_categories", DEFAULT_CATEGORIES));
+  const [balance, setBalance] = useState(() => safeJSON.get("mylo_balance", 0));
+  const [transactions, setTransactions] = useState<Transaction[]>(() => safeJSON.get("mylo_transactions", []));
+  const [limits, setLimits] = useState<Limit[]>(() => safeJSON.get("mylo_limits", []));
+  const [goals, setGoals] = useState<Goal[]>(() => safeJSON.get("mylo_goals", []));
+  const [categories, setCategories] = useState(() => safeJSON.get("mylo_categories", DEFAULT_CATEGORIES));
   
-  const [theme, setThemeState] = useState<"light" | "dark" | "system">(() => safeJSON.get("hamyon_theme", "light") as "light" | "dark" | "system");
-  const [currency, setCurrencyState] = useState<string>(() => safeJSON.get("hamyon_currency", "UZS"));
-  const [quickAdds, setQuickAddsState] = useState<QuickAddPreset[]>(() => safeJSON.get("hamyon_quickAdds", []));
-  const [onboardingComplete, setOnboardingCompleteState] = useState(() => Boolean(safeJSON.get("hamyon_onboarding", false)));
-  const [reminderDays, setReminderDaysState] = useState<number>(() => safeJSON.get("hamyon_reminderDays", 3));
+  const [theme, setThemeState] = useState<"light" | "dark" | "system">(() => safeJSON.get("mylo_theme", "light") as "light" | "dark" | "system");
+  const [currency, setCurrencyState] = useState<string>(() => safeJSON.get("mylo_currency", "UZS"));
+  const [quickAdds, setQuickAddsState] = useState<QuickAddPreset[]>(() => safeJSON.get("mylo_quickAdds", []));
+  const [onboardingComplete, setOnboardingCompleteState] = useState(() => Boolean(safeJSON.get("mylo_onboarding", false)));
+  const [reminderDays, setReminderDaysState] = useState<number>(() => safeJSON.get("mylo_reminderDays", 3));
   
   const setTheme = useCallback((newTheme: "light" | "dark" | "system") => {
     setThemeState(newTheme);
-    safeJSON.set("hamyon_theme", newTheme);
+    safeJSON.set("mylo_theme", newTheme);
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   }, []);
   
   const setCurrency = useCallback((newCurrency: string) => {
     setCurrencyState(newCurrency);
-    safeJSON.set("hamyon_currency", newCurrency);
+    safeJSON.set("mylo_currency", newCurrency);
   }, []);
   
   const setQuickAdds = useCallback((presets: QuickAddPreset[]) => {
     setQuickAddsState(presets);
-    safeJSON.set("hamyon_quickAdds", presets);
+    safeJSON.set("mylo_quickAdds", presets);
   }, []);
   
   const setOnboardingComplete = useCallback((complete: boolean) => {
     setOnboardingCompleteState(complete);
-    safeJSON.set("hamyon_onboarding", complete);
+    safeJSON.set("mylo_onboarding", complete);
   }, []);
   
   const setReminderDays = useCallback((days: number) => {
     setReminderDaysState(days);
-    safeJSON.set("hamyon_reminderDays", days);
+    safeJSON.set("mylo_reminderDays", days);
   }, []);
   
   useEffect(() => {
@@ -295,8 +295,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       u = tg.initDataUnsafe?.user || null;
     }
     if (!u) {
-      u = { id: safeJSON.get("hamyon_uid", Date.now()), first_name: "User" };
-      safeJSON.set("hamyon_uid", u.id);
+      u = { id: safeJSON.get("mylo_uid", Date.now()), first_name: "User" };
+      safeJSON.set("mylo_uid", u.id);
     }
     setTgUser(u);
   }, []);
@@ -304,22 +304,22 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // Sync language from profile when profile loads (non-blocking, only if no localStorage preference)
   useEffect(() => {
     if (profile?.language && (profile.language === 'en' || profile.language === 'ru' || profile.language === 'uz')) {
-      const savedLang = safeJSON.get("monex_lang", null);
+      const savedLang = safeJSON.get("mylo_lang", null);
       // Only use profile language if user hasn't explicitly set one in localStorage
       if (!savedLang && lang !== profile.language) {
         setLangState(profile.language as LangKey);
-        safeJSON.set("monex_lang", profile.language);
+        safeJSON.set("mylo_lang", profile.language);
       }
     }
   }, [profile?.language]); // Only run when profile language changes
 
   // Persist to localStorage
-  useEffect(() => safeJSON.set("hamyon_dataMode", dataMode), [dataMode]);
-  useEffect(() => safeJSON.set("hamyon_balance", balance), [balance]);
-  useEffect(() => safeJSON.set("hamyon_transactions", transactions), [transactions]);
-  useEffect(() => safeJSON.set("hamyon_limits", limits), [limits]);
-  useEffect(() => safeJSON.set("hamyon_goals", goals), [goals]);
-  useEffect(() => safeJSON.set("hamyon_categories", categories), [categories]);
+  useEffect(() => safeJSON.set("mylo_dataMode", dataMode), [dataMode]);
+  useEffect(() => safeJSON.set("mylo_balance", balance), [balance]);
+  useEffect(() => safeJSON.set("mylo_transactions", transactions), [transactions]);
+  useEffect(() => safeJSON.set("mylo_limits", limits), [limits]);
+  useEffect(() => safeJSON.set("mylo_goals", goals), [goals]);
+  useEffect(() => safeJSON.set("mylo_categories", categories), [categories]);
   
   // Fetch data from Supabase when authenticated
   useEffect(() => {
