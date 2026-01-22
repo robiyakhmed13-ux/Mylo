@@ -6,7 +6,7 @@ import { RecurringTransaction } from "@/types";
 import { safeJSON, uid, todayISO } from "@/lib/storage";
 import { ArrowLeft, Plus, AlertTriangle, X } from "lucide-react";
 
-const RECURRING_KEY = "hamyon_recurring";
+const RECURRING_KEY = "mylo_recurring";
 
 export const RecurringScreen: React.FC = () => {
   const { t, getCat, catLabel, addTransaction, showToast, allCats, setActiveScreen, lang } = useApp();
