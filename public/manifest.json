@@ -1,6 +1,6 @@
 {
-  "name": "MonEX - Personal Finance Tracker",
-  "short_name": "MonEX",
+  "name": "Mylo - Personal Finance Tracker",
+  "short_name": "Mylo",
   "description": "Track your expenses, income, and budgets with AI-powered insights",
   "start_url": "/",
   "display": "standalone",
@@ -22,7 +22,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/monex-icon.png",
+      "src": "/icons/mylo-icon.png",
       "sizes": "1024x1024",
       "type": "image/png"
     }
