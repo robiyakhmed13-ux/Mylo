@@ -25,7 +25,7 @@ const Terms: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">1. Acceptance of Terms</h2>
             <p>
-              By accessing or using MonEX ("the App"), you agree to be bound by these Terms of Service. 
+              By accessing or using Mylo ("the App"), you agree to be bound by these Terms of Service. 
               If you do not agree to these terms, please do not use the App.
             </p>
           </section>
@@ -33,7 +33,7 @@ const Terms: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">2. Description of Service</h2>
             <p>
-              MonEX is a personal finance management application that helps users track expenses, 
+              Mylo is a personal finance management application that helps users track expenses, 
               income, budgets, and financial goals. The App provides AI-powered insights and 
               recommendations to help users make informed financial decisions.
             </p>
@@ -64,7 +64,7 @@ const Terms: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">5. Financial Information Disclaimer</h2>
             <p className="mb-2">
-              <strong>Important:</strong> MonEX provides tools and insights for personal finance 
+              <strong>Important:</strong> Mylo provides tools and insights for personal finance 
               management, but does NOT provide:
             </p>
             <ul className="list-disc list-inside space-y-1 ml-4">
@@ -82,7 +82,7 @@ const Terms: React.FC = () => {
             <h2 className="text-xl font-semibold mb-3">6. Data Accuracy</h2>
             <p>
               You are solely responsible for the accuracy of the financial data you enter into 
-              the App. MonEX is not responsible for any errors or inaccuracies in your data.
+              the App. Mylo is not responsible for any errors or inaccuracies in your data.
             </p>
           </section>
           
@@ -90,7 +90,7 @@ const Terms: React.FC = () => {
             <h2 className="text-xl font-semibold mb-3">7. Intellectual Property</h2>
             <p>
               All content, features, and functionality of the App, including but not limited to 
-              text, graphics, logos, and software, are owned by MonEX and protected by 
+              text, graphics, logos, and software, are owned by Mylo and protected by 
               intellectual property laws.
             </p>
           </section>
@@ -98,7 +98,7 @@ const Terms: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">8. Limitation of Liability</h2>
             <p>
-              To the fullest extent permitted by law, MonEX shall not be liable for any indirect, 
+              To the fullest extent permitted by law, Mylo shall not be liable for any indirect, 
               incidental, special, consequential, or punitive damages resulting from your use of 
               the App, including but not limited to financial losses based on app data or recommendations.
             </p>
