@@ -1,7 +1,7 @@
 // i18n translations
 export const I18N = {
   uz: {
-    appName: "Hamyon",
+    appName: "Mylo",
     hello: "Salom",
     assistant: "Moliyaviy yordamchingiz",
     balance: "Joriy balans",
@@ -174,7 +174,7 @@ export const I18N = {
     orOpenBot: "Yoki botni to'g'ridan-to'g'ri oching:",
     // AI Copilot
     aiCopilot: "AI Kopilot",
-    aiCopilotSubtitle: "MonEX moliyaviy yordamchi",
+    aiCopilotSubtitle: "Mylo moliyaviy yordamchi",
     analyzingFinances: "Moliyangizni tahlil qilmoqdaman...",
     refreshAnalysis: "Tahlilni yangilash",
     noWarnings: "Hammasi yaxshi! Ogohlantirishlar yo'q.",
@@ -185,7 +185,7 @@ export const I18N = {
     signOut: "Chiqish",
   },
   ru: {
-    appName: "Hamyon",
+    appName: "Mylo",
     hello: "Привет",
     assistant: "Ваш финансовый помощник",
     balance: "Баланс",
@@ -358,7 +358,7 @@ export const I18N = {
     orOpenBot: "Или откройте бота напрямую:",
     // AI Copilot
     aiCopilot: "AI Копилот",
-    aiCopilotSubtitle: "Финансовый помощник MonEX",
+    aiCopilotSubtitle: "Финансовый помощник Mylo",
     analyzingFinances: "Анализирую ваши финансы...",
     refreshAnalysis: "Обновить анализ",
     noWarnings: "Всё отлично! Нет предупреждений.",
@@ -369,7 +369,7 @@ export const I18N = {
     signOut: "Выйти",
   },
   en: {
-    appName: "Hamyon",
+    appName: "Mylo",
     hello: "Hello",
     assistant: "Your financial assistant",
     balance: "Balance",
@@ -542,7 +542,7 @@ export const I18N = {
     orOpenBot: "Or open the bot directly:",
     // AI Copilot
     aiCopilot: "AI Copilot",
-    aiCopilotSubtitle: "MonEX Financial Assistant",
+    aiCopilotSubtitle: "Mylo Financial Assistant",
     analyzingFinances: "Analyzing your finances...",
     refreshAnalysis: "Refresh Analysis",
     noWarnings: "All good! No warnings.",
