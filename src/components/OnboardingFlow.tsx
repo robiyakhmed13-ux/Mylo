@@ -1545,12 +1545,12 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
     // Save answers to local storage for later sync
     localStorage.setItem('mylo_onboarding_answers', JSON.stringify(answers));
     setCurrentFlow('auth');
-    setAuthStep('features');
+    setAuthStep('auth-choice');
   };
 
   const handleQuestionsSkip = () => {
     setCurrentFlow('auth');
-    setAuthStep('features');
+    setAuthStep('auth-choice');
   };
 
   return (

@@ -4,7 +4,9 @@ import { ArrowLeft, Vibrate, Bell, Clock, AlertTriangle, Check } from "lucide-re
 import { useApp } from "@/context/AppContext";
 import { safeJSON } from "@/lib/storage";
 import { useLocalNotifications } from "@/hooks/useLocalNotifications";
-import { useHaptic, HapticIntensity } from "@/hooks/useHaptic";
+import { useHaptic } from "@/hooks/useHaptic";
+
+type HapticIntensity = "off" | "light" | "medium";
 import { Switch } from "@/components/ui/switch";
 import { Capacitor } from '@capacitor/core';
 

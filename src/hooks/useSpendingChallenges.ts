@@ -40,7 +40,7 @@ export const useSpendingChallenges = () => {
     if (!isAuthenticated || !user?.id) return null;
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('spending_challenges')
         .select('*')
         .eq('user_id', user.id)
@@ -73,7 +73,7 @@ export const useSpendingChallenges = () => {
     if (!isAuthenticated || !user?.id) return false;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('spending_challenges')
         .upsert({
           id: challenge.id,
@@ -106,7 +106,7 @@ export const useSpendingChallenges = () => {
     if (!isAuthenticated || !user?.id) return false;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('spending_challenges')
         .delete()
         .eq('id', challengeId)
