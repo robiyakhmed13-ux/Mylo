@@ -434,7 +434,7 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
 
             <Button 
               onClick={handleNext} 
-              className="w-full h-14 text-lg bg-emerald-500 hover:bg-emerald-600 text-white"
+              className="w-full h-14 text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               {TRANSLATIONS.continue[lang]}
             </Button>
