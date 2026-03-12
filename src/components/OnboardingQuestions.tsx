@@ -478,7 +478,7 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
           <Button
             onClick={handleNext}
             disabled={!canProceed()}
-            className="w-full h-14 text-lg bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white"
+            className="w-full h-14 text-lg bg-primary hover:bg-primary/90 disabled:opacity-50 text-primary-foreground"
           >
             {TRANSLATIONS.continue[lang]}
           </Button>
