@@ -106,7 +106,7 @@ export const useSpendingChallenges = () => {
     if (!isAuthenticated || !user?.id) return false;
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('spending_challenges')
         .delete()
         .eq('id', challengeId)
