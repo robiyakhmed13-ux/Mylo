@@ -40,7 +40,7 @@ export const useSpendingChallenges = () => {
     if (!isAuthenticated || !user?.id) return null;
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('spending_challenges')
         .select('*')
         .eq('user_id', user.id)
