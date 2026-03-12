@@ -361,7 +361,7 @@ export const OnboardingQuestions: React.FC<OnboardingQuestionsProps> = ({ lang, 
             <Button 
               onClick={handleEnableNotifications} 
               disabled={isEnablingNotifications}
-              className="w-full h-14 text-lg bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-70"
+              className="w-full h-14 text-lg bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-70"
             >
               {isEnablingNotifications ? (
                 <>
