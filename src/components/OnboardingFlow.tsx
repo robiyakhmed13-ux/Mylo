@@ -757,6 +757,15 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
                 </svg>
                 {t.googleLogin}
               </Button>
+
+              <button
+                onClick={() => {
+                  onComplete();
+                }}
+                className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors pt-4"
+              >
+                {onboardingLang === 'ru' ? 'Продолжить как гость →' : onboardingLang === 'uz' ? 'Mehmon sifatida davom eting →' : 'Continue as guest →'}
+              </button>
             </div>
           </div>
         </motion.div>
