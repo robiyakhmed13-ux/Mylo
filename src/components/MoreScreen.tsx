@@ -50,20 +50,8 @@ export const MoreScreen: React.FC = () => {
   const [showAICopilot, setShowAICopilot] = useState(false);
   const [showFinancePlanner, setShowFinancePlanner] = useState(false);
   const [showBudgetSimulator, setShowBudgetSimulator] = useState(false);
-  const [showSpendingChallenge, setShowSpendingChallenge] = useState(false);
 
   const handleToolClick = (screen: ScreenType) => {
-    triggerLight();
-    const newUsage = { ...toolUsage, [screen]: (toolUsage[screen] || 0) + 1 };
-    setToolUsage(newUsage);
-    safeJSON.set(STORAGE_KEY, newUsage);
-    setActiveScreen(screen);
-  };
-
-  // If showing spending challenge, render that screen
-  if (showSpendingChallenge) {
-    return <SpendingChallengeScreen onBack={() => setShowSpendingChallenge(false)} />;
-  }
 
   const frequentlyUsed = useMemo(() => {
     return Object.entries(toolUsage)
