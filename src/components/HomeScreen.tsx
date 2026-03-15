@@ -9,7 +9,7 @@ import { AIInsightsWidget } from "./AIInsightsWidget";
 import { FinancePlannerModal } from "./FinancePlannerModal";
 import { BudgetSimulatorModal } from "./BudgetSimulatorModal";
 import { 
-  RefreshCw, ArrowDown, ArrowUp, Plus,
+  RefreshCw, ArrowDown, ArrowUp, Plus, Bell,
   ChevronUp, ChevronDown, X, Check, TrendingUp, Pencil,
   MessageCircle, ChevronRight
 } from "lucide-react";
