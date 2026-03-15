@@ -9,7 +9,7 @@ import { AIInsightsWidget } from "./AIInsightsWidget";
 import { FinancePlannerModal } from "./FinancePlannerModal";
 import { BudgetSimulatorModal } from "./BudgetSimulatorModal";
 import { 
-  RefreshCw, ArrowDown, ArrowUp, Plus,
+  RefreshCw, ArrowDown, ArrowUp, Plus, Bell,
   ChevronUp, ChevronDown, X, Check, TrendingUp, Pencil,
   MessageCircle, ChevronRight
 } from "lucide-react";
@@ -20,7 +20,7 @@ const fadeInTo = { opacity: 1 };
 const slideUp = { opacity: 0, y: 8 };
 const slideUpTo = { opacity: 1, y: 0 };
 
-export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () => void }> = ({ onAddExpense, onAddIncome }) => {
+export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () => void; onNotificationsClick?: () => void; unreadCount?: number }> = ({ onAddExpense, onAddIncome, onNotificationsClick, unreadCount = 0 }) => {
   const { 
     t, lang, tgUser, balance, todayExp, todayInc, weekSpend, monthSpend, 
     limits, monthSpentByCategory, getCat, catLabel, addTransaction,
@@ -119,10 +119,14 @@ export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () =>
   const [showAICopilot, setShowAICopilot] = useState(false);
   const [showFinancePlanner, setShowFinancePlanner] = useState(false);
   const [showBudgetSimulator, setShowBudgetSimulator] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Refresh handler for pull-to-refresh
+  // Refresh handler
   const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
     await syncFromRemote();
+    // Small delay so user sees the animation
+    setTimeout(() => setIsRefreshing(false), 600);
   }, [syncFromRemote]);
   
   return (
@@ -144,11 +148,24 @@ export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () =>
           <div className="flex items-center gap-2">
             <VoiceInput onTransactionParsed={handleVoiceTransaction} />
             <button 
-              onClick={syncFromRemote}
+              onClick={handleRefresh}
               className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center active:opacity-70"
             >
-              <RefreshCw className="w-5 h-5 text-muted-foreground" />
+              <RefreshCw className={`w-5 h-5 text-muted-foreground transition-transform ${isRefreshing ? 'animate-spin' : ''}`} />
             </button>
+            {onNotificationsClick && (
+              <button 
+                onClick={onNotificationsClick}
+                className="relative w-10 h-10 rounded-full bg-secondary flex items-center justify-center active:opacity-70"
+              >
+                <Bell className="w-5 h-5 text-muted-foreground" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-white text-xs rounded-full flex items-center justify-center font-bold">
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         </header>
         
