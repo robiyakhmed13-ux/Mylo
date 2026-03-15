@@ -156,6 +156,8 @@ const HamyonApp: React.FC = () => {
             {activeScreen === "more" && <MoreScreen />}
             {activeScreen === "help" && <HelpScreen />}
             {activeScreen === "learn" && <LearnScreen />}
+            {activeScreen === "haptic-settings" && <HapticSettingsScreen onBack={() => setActiveScreen("settings")} />}
+            {activeScreen === "spending-challenge" && <SpendingChallengeScreen onBack={() => setActiveScreen("more")} />}
           </Suspense>
         </motion.div>
       </AnimatePresence>
