@@ -11,7 +11,6 @@ import { ScreenType } from "@/types";
 import { AICopilotPanel } from "./AICopilotPanel";
 import { FinancePlannerModal } from "./FinancePlannerModal";
 import { BudgetSimulatorModal } from "./BudgetSimulatorModal";
-import { SpendingChallengeScreen } from "./SpendingChallengeScreen";
 import { useHaptic } from "@/hooks/useHaptic";
 
 interface ToolItem {
