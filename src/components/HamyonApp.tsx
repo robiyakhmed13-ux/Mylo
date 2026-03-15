@@ -31,6 +31,8 @@ const DebtPayoffScreen = lazy(() => import("@/components/DebtPayoffScreen").then
 const MoreScreen = lazy(() => import("@/components/MoreScreen").then(m => ({ default: m.MoreScreen })));
 const HelpScreen = lazy(() => import("@/components/HelpScreen").then(m => ({ default: m.HelpScreen })));
 const LearnScreen = lazy(() => import("@/components/LearnScreen").then(m => ({ default: m.LearnScreen })));
+const HapticSettingsScreen = lazy(() => import("@/components/HapticSettingsScreen").then(m => ({ default: m.HapticSettingsScreen })));
+const SpendingChallengeScreen = lazy(() => import("@/components/SpendingChallengeScreen").then(m => ({ default: m.SpendingChallengeScreen })));
 
 // Page transition variants
 const pageVariants = {
@@ -56,7 +58,7 @@ const LoadingFallback = () => (
 );
 
 const HamyonApp: React.FC = () => {
-  const { activeScreen, onboardingComplete, setOnboardingComplete } = useApp();
+  const { activeScreen, setActiveScreen, onboardingComplete, setOnboardingComplete } = useApp();
   const { notifications, unreadCount, markAsRead, clearAll } = useSmartNotifications();
   
   // Register push notifications
@@ -154,6 +156,8 @@ const HamyonApp: React.FC = () => {
             {activeScreen === "more" && <MoreScreen />}
             {activeScreen === "help" && <HelpScreen />}
             {activeScreen === "learn" && <LearnScreen />}
+            {activeScreen === "haptic-settings" && <HapticSettingsScreen onBack={() => setActiveScreen("settings")} />}
+            {activeScreen === "spending-challenge" && <SpendingChallengeScreen onBack={() => setActiveScreen("more")} />}
           </Suspense>
         </motion.div>
       </AnimatePresence>

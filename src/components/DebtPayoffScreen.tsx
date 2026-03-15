@@ -424,7 +424,7 @@ export const DebtPayoffScreen = memo(() => {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             onClick={e => e.stopPropagation()}
-            className="bg-background rounded-t-3xl p-6 w-full max-w-lg"
+            className="bg-background rounded-t-3xl p-6 w-full max-w-lg max-h-[85vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold">{t.addDebt}</h2>

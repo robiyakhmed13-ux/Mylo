@@ -458,7 +458,7 @@ export const LearnScreen: React.FC = () => {
                               ✓
                             </span>
                           ) : (
-                            "Mark as complete"
+                            lang === "ru" ? "Отметить как прочитанное" : lang === "uz" ? "Tugallangan deb belgilash" : "Mark as complete"
                           )}
                         </button>
                       </div>

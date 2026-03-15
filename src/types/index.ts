@@ -297,4 +297,6 @@ export type ScreenType =
   | "debt-payoff"
   | "more"
   | "help"
-  | "learn";
+  | "learn"
+  | "haptic-settings"
+  | "spending-challenge";
