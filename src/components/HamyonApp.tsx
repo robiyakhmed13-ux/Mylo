@@ -58,7 +58,7 @@ const LoadingFallback = () => (
 );
 
 const HamyonApp: React.FC = () => {
-  const { activeScreen, onboardingComplete, setOnboardingComplete } = useApp();
+  const { activeScreen, setActiveScreen, onboardingComplete, setOnboardingComplete } = useApp();
   const { notifications, unreadCount, markAsRead, clearAll } = useSmartNotifications();
   
   // Register push notifications
