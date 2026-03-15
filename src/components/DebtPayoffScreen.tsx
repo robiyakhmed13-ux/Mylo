@@ -417,14 +417,14 @@ export const DebtPayoffScreen = memo(() => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-end justify-center"
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
           onClick={() => setShowAddModal(false)}
         >
           <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             onClick={e => e.stopPropagation()}
-            className="bg-background rounded-t-3xl p-6 w-full max-w-lg max-h-[85vh] overflow-y-auto"
+            className="bg-background rounded-2xl p-6 w-full max-w-md max-h-[85vh] overflow-y-auto shadow-xl"
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold">{t.addDebt}</h2>
