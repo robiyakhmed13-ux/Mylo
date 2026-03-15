@@ -52,6 +52,12 @@ export const MoreScreen: React.FC = () => {
   const [showBudgetSimulator, setShowBudgetSimulator] = useState(false);
 
   const handleToolClick = (screen: ScreenType) => {
+    triggerLight();
+    const newUsage = { ...toolUsage, [screen]: (toolUsage[screen] || 0) + 1 };
+    setToolUsage(newUsage);
+    safeJSON.set(STORAGE_KEY, newUsage);
+    setActiveScreen(screen);
+  };
 
   const frequentlyUsed = useMemo(() => {
     return Object.entries(toolUsage)
