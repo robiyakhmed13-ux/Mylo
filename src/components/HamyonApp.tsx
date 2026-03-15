@@ -111,7 +111,12 @@ const HamyonApp: React.FC = () => {
           className="h-full"
         >
           {activeScreen === "home" && (
-            <HomeScreen onAddExpense={openAddExpense} onAddIncome={openAddIncome} />
+            <HomeScreen 
+              onAddExpense={openAddExpense} 
+              onAddIncome={openAddIncome}
+              onNotificationsClick={() => setShowNotifications(true)}
+              unreadCount={unreadCount}
+            />
           )}
           
           <Suspense fallback={<LoadingFallback />}>
