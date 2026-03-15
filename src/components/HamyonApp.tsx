@@ -31,6 +31,8 @@ const DebtPayoffScreen = lazy(() => import("@/components/DebtPayoffScreen").then
 const MoreScreen = lazy(() => import("@/components/MoreScreen").then(m => ({ default: m.MoreScreen })));
 const HelpScreen = lazy(() => import("@/components/HelpScreen").then(m => ({ default: m.HelpScreen })));
 const LearnScreen = lazy(() => import("@/components/LearnScreen").then(m => ({ default: m.LearnScreen })));
+const HapticSettingsScreen = lazy(() => import("@/components/HapticSettingsScreen").then(m => ({ default: m.HapticSettingsScreen })));
+const SpendingChallengeScreen = lazy(() => import("@/components/SpendingChallengeScreen").then(m => ({ default: m.SpendingChallengeScreen })));
 
 // Page transition variants
 const pageVariants = {
