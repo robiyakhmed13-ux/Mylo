@@ -11,7 +11,6 @@ import { ScreenType } from "@/types";
 import { AICopilotPanel } from "./AICopilotPanel";
 import { FinancePlannerModal } from "./FinancePlannerModal";
 import { BudgetSimulatorModal } from "./BudgetSimulatorModal";
-import { SpendingChallengeScreen } from "./SpendingChallengeScreen";
 import { useHaptic } from "@/hooks/useHaptic";
 
 interface ToolItem {
@@ -50,7 +49,6 @@ export const MoreScreen: React.FC = () => {
   const [showAICopilot, setShowAICopilot] = useState(false);
   const [showFinancePlanner, setShowFinancePlanner] = useState(false);
   const [showBudgetSimulator, setShowBudgetSimulator] = useState(false);
-  const [showSpendingChallenge, setShowSpendingChallenge] = useState(false);
 
   const handleToolClick = (screen: ScreenType) => {
     triggerLight();
@@ -59,11 +57,6 @@ export const MoreScreen: React.FC = () => {
     safeJSON.set(STORAGE_KEY, newUsage);
     setActiveScreen(screen);
   };
-
-  // If showing spending challenge, render that screen
-  if (showSpendingChallenge) {
-    return <SpendingChallengeScreen onBack={() => setShowSpendingChallenge(false)} />;
-  }
 
   const frequentlyUsed = useMemo(() => {
     return Object.entries(toolUsage)
@@ -171,7 +164,7 @@ export const MoreScreen: React.FC = () => {
 
           {/* Spending Challenge */}
           <button
-            onClick={() => { triggerLight(); setShowSpendingChallenge(true); }}
+            onClick={() => { triggerLight(); setActiveScreen("spending-challenge"); }}
             className="card-action w-full flex items-center gap-4 active:opacity-80"
           >
             <div className="w-12 h-12 rounded-xl bg-rose-500/15 flex items-center justify-center flex-shrink-0">
