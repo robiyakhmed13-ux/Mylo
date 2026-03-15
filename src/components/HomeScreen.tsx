@@ -153,6 +153,19 @@ export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () =>
             >
               <RefreshCw className={`w-5 h-5 text-muted-foreground transition-transform ${isRefreshing ? 'animate-spin' : ''}`} />
             </button>
+            {onNotificationsClick && (
+              <button 
+                onClick={onNotificationsClick}
+                className="relative w-10 h-10 rounded-full bg-secondary flex items-center justify-center active:opacity-70"
+              >
+                <Bell className="w-5 h-5 text-muted-foreground" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-white text-xs rounded-full flex items-center justify-center font-bold">
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         </header>
         
