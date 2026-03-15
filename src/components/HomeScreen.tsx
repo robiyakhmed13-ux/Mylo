@@ -20,7 +20,7 @@ const fadeInTo = { opacity: 1 };
 const slideUp = { opacity: 0, y: 8 };
 const slideUpTo = { opacity: 1, y: 0 };
 
-export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () => void }> = ({ onAddExpense, onAddIncome }) => {
+export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () => void; onNotificationsClick?: () => void; unreadCount?: number }> = ({ onAddExpense, onAddIncome, onNotificationsClick, unreadCount = 0 }) => {
   const { 
     t, lang, tgUser, balance, todayExp, todayInc, weekSpend, monthSpend, 
     limits, monthSpentByCategory, getCat, catLabel, addTransaction,
