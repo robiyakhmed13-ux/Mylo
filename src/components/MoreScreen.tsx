@@ -165,7 +165,7 @@ export const MoreScreen: React.FC = () => {
 
           {/* Spending Challenge */}
           <button
-            onClick={() => { triggerLight(); setShowSpendingChallenge(true); }}
+            onClick={() => { triggerLight(); setActiveScreen("spending-challenge"); }}
             className="card-action w-full flex items-center gap-4 active:opacity-80"
           >
             <div className="w-12 h-12 rounded-xl bg-rose-500/15 flex items-center justify-center flex-shrink-0">
