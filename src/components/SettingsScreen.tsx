@@ -279,7 +279,7 @@ export const SettingsScreen = memo(() => {
           <MenuItem 
             icon={<Vibrate className="w-5 h-5" />}
             label={lang === "ru" ? "Вибрация и уведомления" : lang === "uz" ? "Tebranish va bildirishnomalar" : "Haptics & Notifications"}
-            onClick={() => setActiveScreen("haptic-settings" as any)}
+            onClick={() => setActiveScreen("haptic-settings")}
             isLast
           />
         </div>
