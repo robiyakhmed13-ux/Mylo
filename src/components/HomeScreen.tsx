@@ -148,10 +148,10 @@ export const HomeScreen: React.FC<{ onAddExpense: () => void; onAddIncome: () =>
           <div className="flex items-center gap-2">
             <VoiceInput onTransactionParsed={handleVoiceTransaction} />
             <button 
-              onClick={syncFromRemote}
+              onClick={handleRefresh}
               className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center active:opacity-70"
             >
-              <RefreshCw className="w-5 h-5 text-muted-foreground" />
+              <RefreshCw className={`w-5 h-5 text-muted-foreground transition-transform ${isRefreshing ? 'animate-spin' : ''}`} />
             </button>
           </div>
         </header>
