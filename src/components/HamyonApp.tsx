@@ -7,7 +7,6 @@ import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { NotificationsPanel } from "@/components/NotificationsPanel";
 import { useSmartNotifications } from "@/hooks/useSmartNotifications";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
-import { Bell } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Lazy load screens for better performance
