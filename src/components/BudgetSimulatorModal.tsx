@@ -742,7 +742,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <Sparkles className="w-4 h-4 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{labels.in5Years}</span>
                     </div>
-                    <span className="font-bold text-income text-lg">
+                    <span className="font-bold text-income text-sm">
                       +{formatCurrency(savingsProjection.fiveYearSavings, currency)}
                     </span>
                   </div>
