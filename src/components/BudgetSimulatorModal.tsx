@@ -519,8 +519,8 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
             <div className="p-4 rounded-2xl bg-secondary/50">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-sm font-medium text-foreground">{labels.reduction}</span>
-                <span className="text-2xl font-bold text-primary flex items-center gap-1">
-                  <Percent className="w-5 h-5" />
+               <span className="text-lg font-bold text-primary flex items-center gap-1">
+                  <Percent className="w-4 h-4" />
                   {reductionPercent}%
                 </span>
               </div>

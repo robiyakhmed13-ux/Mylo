@@ -160,7 +160,7 @@ export const NetWorthScreen = memo(() => {
           </div>
           <div className="p-3 rounded-xl bg-expense/10">
             <p className="text-caption mb-1">{t.liabilities}</p>
-            <p className="text-title text-expense">-{formatCurrency(totalLiabilities, currency)}</p>
+            <p className="text-sm font-semibold text-expense">-{formatCurrency(totalLiabilities, currency)}</p>
           </div>
         </div>
       </div>
