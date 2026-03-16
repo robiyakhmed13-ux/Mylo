@@ -159,7 +159,7 @@ export const NetWorthScreen = memo(() => {
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 rounded-xl bg-income/10">
             <p className="text-caption mb-1">{t.assets}</p>
-            <p className="text-sm font-semibold text-income">+{formatCurrency(totalAssets, currency)}</p>
+            <AutoFitAmount value={`+${formatCurrency(totalAssets, currency)}`} baseSize="md" className="text-income" />
           </div>
           <div className="p-3 rounded-xl bg-expense/10">
             <p className="text-caption mb-1">{t.liabilities}</p>
