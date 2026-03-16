@@ -6,6 +6,7 @@ import { safeJSON } from "@/lib/storage";
 import { formatCurrency } from "@/lib/exportData";
 import { TrendingUp, TrendingDown, Wallet, CreditCard, PiggyBank, Building2, ArrowLeft, Plus, X } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import { AutoFitAmount } from "@/components/AutoFitAmount";
 
 export const NetWorthScreen = memo(() => {
   const { lang, currency, setActiveScreen, balance, showToast } = useApp();
@@ -139,9 +140,11 @@ export const NetWorthScreen = memo(() => {
       <div className="card-elevated p-5 mb-section">
         <p className="text-caption mb-2">{t.netWorth}</p>
         <div className="flex items-baseline gap-2 mb-4 flex-wrap">
-          <h2 className={`text-xl font-bold ${netWorth >= 0 ? 'text-income' : 'text-expense'}`}>
-            {formatCurrency(netWorth, currency)}
-          </h2>
+          <AutoFitAmount 
+            value={formatCurrency(netWorth, currency)} 
+            baseSize="xl" 
+            className={netWorth >= 0 ? 'text-income' : 'text-expense'} 
+          />
           {netWorthChange !== 0 && (
             <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-body-medium ${
               netWorthChange > 0 ? 'bg-income/10 text-income' : 'bg-expense/10 text-expense'
@@ -156,11 +159,11 @@ export const NetWorthScreen = memo(() => {
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 rounded-xl bg-income/10">
             <p className="text-caption mb-1">{t.assets}</p>
-            <p className="text-sm font-semibold text-income">+{formatCurrency(totalAssets, currency)}</p>
+            <AutoFitAmount value={`+${formatCurrency(totalAssets, currency)}`} baseSize="md" className="text-income" />
           </div>
           <div className="p-3 rounded-xl bg-expense/10">
             <p className="text-caption mb-1">{t.liabilities}</p>
-            <p className="text-sm font-semibold text-expense">-{formatCurrency(totalLiabilities, currency)}</p>
+            <AutoFitAmount value={`-${formatCurrency(totalLiabilities, currency)}`} baseSize="md" className="text-expense" />
           </div>
         </div>
       </div>

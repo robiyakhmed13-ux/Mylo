@@ -6,6 +6,7 @@ import { safeJSON } from "@/lib/storage";
 import { formatCurrency } from "@/lib/exportData";
 import { TrendingDown, Calendar, Target, Zap, Snowflake, Plus, X, Trash2 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, BarChart, Bar } from "recharts";
+import { AutoFitAmount } from "@/components/AutoFitAmount";
 
 export const DebtPayoffScreen = memo(() => {
   const { lang, currency, setActiveScreen, showToast } = useApp();
@@ -290,7 +291,7 @@ export const DebtPayoffScreen = memo(() => {
               >
                 <TrendingDown className="w-4 h-4 text-expense mb-1" />
                 <p className="text-[10px] text-muted-foreground">{t.totalDebt}</p>
-                <p className="text-xs font-bold text-expense break-all">{formatCurrency(totalDebt, currency)}</p>
+                <AutoFitAmount value={formatCurrency(totalDebt, currency)} baseSize="sm" className="text-expense" />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -310,7 +311,7 @@ export const DebtPayoffScreen = memo(() => {
               >
                 <Target className="w-4 h-4 text-income mb-1" />
                 <p className="text-[10px] text-muted-foreground">{t.interestSaved}</p>
-                <p className="text-xs font-bold text-income break-all">{formatCurrency(payoffPlan.interestSaved, currency)}</p>
+                <AutoFitAmount value={formatCurrency(payoffPlan.interestSaved, currency)} baseSize="sm" className="text-income" />
               </motion.div>
             </div>
           )}

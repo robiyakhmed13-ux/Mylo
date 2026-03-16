@@ -19,6 +19,7 @@ import {
   Scissors,
   Wallet
 } from "lucide-react";
+import { AutoFitAmount } from "@/components/AutoFitAmount";
 
 interface BudgetSimulatorModalProps {
   isOpen: boolean;
@@ -551,9 +552,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <TrendingDown className="w-4 h-4 text-expense" />
                       <span className="text-xs text-muted-foreground">{labels.currentSpending}</span>
                     </div>
-                    <p className="text-sm font-bold text-foreground break-all">
-                      {formatCurrency(simulation.originalAmount, currency)}
-                    </p>
+                    <AutoFitAmount value={formatCurrency(simulation.originalAmount, currency)} baseSize="md" className="text-foreground" />
                     <p className="text-xs text-muted-foreground">{labels.perMonth}</p>
                   </div>
                   <div className="p-4 rounded-2xl bg-income/10 border border-income/20">
@@ -561,9 +560,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <TrendingUp className="w-4 h-4 text-income" />
                       <span className="text-xs text-muted-foreground">{labels.afterReduction}</span>
                     </div>
-                    <p className="text-sm font-bold text-foreground break-all">
-                      {formatCurrency(simulation.newAmount, currency)}
-                    </p>
+                    <AutoFitAmount value={formatCurrency(simulation.newAmount, currency)} baseSize="md" className="text-foreground" />
                     <p className="text-xs text-muted-foreground">{labels.perMonth}</p>
                   </div>
                 </div>
@@ -580,9 +577,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlySavings}</p>
-                      <p className="text-lg font-bold text-primary">
-                        +{formatCurrency(simulation.monthlySavings, currency)}
-                      </p>
+                      <AutoFitAmount value={`+${formatCurrency(simulation.monthlySavings, currency)}`} baseSize="lg" className="text-primary" />
                     </div>
                   </div>
                   
@@ -647,9 +642,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlyTotal}</p>
-                      <p className="text-lg font-bold text-primary">
-                        {formatCurrency(dailyResult.monthlyTotal, currency)}
-                      </p>
+                      <AutoFitAmount value={formatCurrency(dailyResult.monthlyTotal, currency)} baseSize="lg" className="text-primary" />
                     </div>
                   </div>
                   
@@ -721,9 +714,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlySavings}</p>
-                      <p className="text-lg font-bold text-income">
-                        +{formatCurrency(savingsProjection.monthlySavings, currency)}
-                      </p>
+                      <AutoFitAmount value={`+${formatCurrency(savingsProjection.monthlySavings, currency)}`} baseSize="lg" className="text-income" />
                     </div>
                   </div>
                   
