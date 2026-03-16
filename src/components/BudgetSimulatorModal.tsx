@@ -560,9 +560,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <TrendingUp className="w-4 h-4 text-income" />
                       <span className="text-xs text-muted-foreground">{labels.afterReduction}</span>
                     </div>
-                    <p className="text-sm font-bold text-foreground break-all">
-                      {formatCurrency(simulation.newAmount, currency)}
-                    </p>
+                    <AutoFitAmount value={formatCurrency(simulation.newAmount, currency)} baseSize="md" className="text-foreground" />
                     <p className="text-xs text-muted-foreground">{labels.perMonth}</p>
                   </div>
                 </div>
