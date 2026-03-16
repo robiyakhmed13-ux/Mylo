@@ -311,7 +311,7 @@ export const DebtPayoffScreen = memo(() => {
               >
                 <Target className="w-4 h-4 text-income mb-1" />
                 <p className="text-[10px] text-muted-foreground">{t.interestSaved}</p>
-                <p className="text-xs font-bold text-income break-all">{formatCurrency(payoffPlan.interestSaved, currency)}</p>
+                <AutoFitAmount value={formatCurrency(payoffPlan.interestSaved, currency)} baseSize="sm" className="text-income" />
               </motion.div>
             </div>
           )}
