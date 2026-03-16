@@ -6,6 +6,7 @@ import { safeJSON } from "@/lib/storage";
 import { formatCurrency } from "@/lib/exportData";
 import { TrendingDown, Calendar, Target, Zap, Snowflake, Plus, X, Trash2 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, BarChart, Bar } from "recharts";
+import { AutoFitAmount } from "@/components/AutoFitAmount";
 
 export const DebtPayoffScreen = memo(() => {
   const { lang, currency, setActiveScreen, showToast } = useApp();
