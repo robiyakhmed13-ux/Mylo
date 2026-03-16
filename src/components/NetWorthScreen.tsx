@@ -138,8 +138,8 @@ export const NetWorthScreen = memo(() => {
       {/* Net Worth Card */}
       <div className="card-elevated p-5 mb-section">
         <p className="text-caption mb-2">{t.netWorth}</p>
-        <div className="flex items-baseline gap-3 mb-4">
-          <h2 className={`text-display ${netWorth >= 0 ? 'text-income' : 'text-expense'}`}>
+        <div className="flex items-baseline gap-2 mb-4 flex-wrap">
+          <h2 className={`text-xl font-bold ${netWorth >= 0 ? 'text-income' : 'text-expense'}`}>
             {formatCurrency(netWorth, currency)}
           </h2>
           {netWorthChange !== 0 && (
