@@ -6,6 +6,7 @@ import { safeJSON } from "@/lib/storage";
 import { formatCurrency } from "@/lib/exportData";
 import { TrendingUp, TrendingDown, Wallet, CreditCard, PiggyBank, Building2, ArrowLeft, Plus, X } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import { AutoFitAmount } from "@/components/AutoFitAmount";
 
 export const NetWorthScreen = memo(() => {
   const { lang, currency, setActiveScreen, balance, showToast } = useApp();
