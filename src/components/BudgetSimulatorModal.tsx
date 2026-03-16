@@ -19,6 +19,7 @@ import {
   Scissors,
   Wallet
 } from "lucide-react";
+import { AutoFitAmount } from "@/components/AutoFitAmount";
 
 interface BudgetSimulatorModalProps {
   isOpen: boolean;
