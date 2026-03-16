@@ -282,35 +282,35 @@ export const DebtPayoffScreen = memo(() => {
 
           {/* Summary Cards */}
           {payoffPlan && (
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-3 gap-2 mb-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-4 rounded-2xl bg-expense/10 border border-expense/20"
+                className="p-3 rounded-2xl bg-expense/10 border border-expense/20"
               >
-                <TrendingDown className="w-5 h-5 text-expense mb-2" />
-                <p className="text-xs text-muted-foreground">{t.totalDebt}</p>
-                <p className="text-lg font-bold text-expense">{formatCurrency(totalDebt, currency)}</p>
+                <TrendingDown className="w-4 h-4 text-expense mb-1" />
+                <p className="text-[10px] text-muted-foreground">{t.totalDebt}</p>
+                <p className="text-xs font-bold text-expense break-all">{formatCurrency(totalDebt, currency)}</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="p-4 rounded-2xl bg-primary/10 border border-primary/20"
+                className="p-3 rounded-2xl bg-primary/10 border border-primary/20"
               >
-                <Calendar className="w-5 h-5 text-primary mb-2" />
-                <p className="text-xs text-muted-foreground">{t.payoffDate}</p>
-                <p className="text-lg font-bold text-foreground">{payoffPlan.payoffDate}</p>
+                <Calendar className="w-4 h-4 text-primary mb-1" />
+                <p className="text-[10px] text-muted-foreground">{t.payoffDate}</p>
+                <p className="text-xs font-bold text-foreground">{payoffPlan.payoffDate}</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="p-4 rounded-2xl bg-income/10 border border-income/20"
+                className="p-3 rounded-2xl bg-income/10 border border-income/20"
               >
-                <Target className="w-5 h-5 text-income mb-2" />
-                <p className="text-xs text-muted-foreground">{t.interestSaved}</p>
-                <p className="text-lg font-bold text-income">{formatCurrency(payoffPlan.interestSaved, currency)}</p>
+                <Target className="w-4 h-4 text-income mb-1" />
+                <p className="text-[10px] text-muted-foreground">{t.interestSaved}</p>
+                <p className="text-xs font-bold text-income break-all">{formatCurrency(payoffPlan.interestSaved, currency)}</p>
               </motion.div>
             </div>
           )}

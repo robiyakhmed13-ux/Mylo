@@ -519,8 +519,8 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
             <div className="p-4 rounded-2xl bg-secondary/50">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-sm font-medium text-foreground">{labels.reduction}</span>
-                <span className="text-2xl font-bold text-primary flex items-center gap-1">
-                  <Percent className="w-5 h-5" />
+               <span className="text-lg font-bold text-primary flex items-center gap-1">
+                  <Percent className="w-4 h-4" />
                   {reductionPercent}%
                 </span>
               </div>
@@ -551,7 +551,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <TrendingDown className="w-4 h-4 text-expense" />
                       <span className="text-xs text-muted-foreground">{labels.currentSpending}</span>
                     </div>
-                    <p className="text-lg font-bold text-foreground">
+                    <p className="text-sm font-bold text-foreground break-all">
                       {formatCurrency(simulation.originalAmount, currency)}
                     </p>
                     <p className="text-xs text-muted-foreground">{labels.perMonth}</p>
@@ -561,7 +561,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <TrendingUp className="w-4 h-4 text-income" />
                       <span className="text-xs text-muted-foreground">{labels.afterReduction}</span>
                     </div>
-                    <p className="text-lg font-bold text-foreground">
+                    <p className="text-sm font-bold text-foreground break-all">
                       {formatCurrency(simulation.newAmount, currency)}
                     </p>
                     <p className="text-xs text-muted-foreground">{labels.perMonth}</p>
@@ -580,7 +580,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlySavings}</p>
-                      <p className="text-2xl font-bold text-primary">
+                      <p className="text-lg font-bold text-primary">
                         +{formatCurrency(simulation.monthlySavings, currency)}
                       </p>
                     </div>
@@ -647,7 +647,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlyTotal}</p>
-                      <p className="text-2xl font-bold text-primary">
+                      <p className="text-lg font-bold text-primary">
                         {formatCurrency(dailyResult.monthlyTotal, currency)}
                       </p>
                     </div>
@@ -721,7 +721,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlySavings}</p>
-                      <p className="text-2xl font-bold text-income">
+                      <p className="text-lg font-bold text-income">
                         +{formatCurrency(savingsProjection.monthlySavings, currency)}
                       </p>
                     </div>
@@ -742,7 +742,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <Sparkles className="w-4 h-4 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{labels.in5Years}</span>
                     </div>
-                    <span className="font-bold text-income text-lg">
+                    <span className="font-bold text-income text-sm">
                       +{formatCurrency(savingsProjection.fiveYearSavings, currency)}
                     </span>
                   </div>

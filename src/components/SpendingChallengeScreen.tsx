@@ -285,13 +285,13 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
           {/* Stats Cards */}
           <div className="grid grid-cols-2 gap-3 mb-6">
             <Card className="p-4 text-center">
-              <Flame className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">{calculateStreak(activeChallenge)}</p>
+              <Flame className="w-6 h-6 text-amber-500 mx-auto mb-2" />
+              <p className="text-lg font-bold text-foreground">{calculateStreak(activeChallenge)}</p>
               <p className="text-xs text-muted-foreground">{TRANSLATIONS.currentStreak[lang]}</p>
             </Card>
             <Card className="p-4 text-center">
-              <Target className="w-8 h-8 text-primary mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">{activeChallenge.completedDays.length}</p>
+              <Target className="w-6 h-6 text-primary mx-auto mb-2" />
+              <p className="text-lg font-bold text-foreground">{activeChallenge.completedDays.length}</p>
               <p className="text-xs text-muted-foreground">{TRANSLATIONS.daysCompleted[lang]}</p>
             </Card>
           </div>
@@ -321,13 +321,13 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-end"
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
           onClick={() => setShowNewChallenge(false)}
         >
           <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            className="w-full bg-background rounded-t-3xl p-6"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-md bg-background rounded-2xl p-5 max-h-[85vh] overflow-y-auto shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl font-bold text-foreground mb-4">{TRANSLATIONS.newChallenge[lang]}</h2>
