@@ -551,7 +551,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                       <TrendingDown className="w-4 h-4 text-expense" />
                       <span className="text-xs text-muted-foreground">{labels.currentSpending}</span>
                     </div>
-                    <p className="text-lg font-bold text-foreground">
+                    <p className="text-sm font-bold text-foreground break-all">
                       {formatCurrency(simulation.originalAmount, currency)}
                     </p>
                     <p className="text-xs text-muted-foreground">{labels.perMonth}</p>
