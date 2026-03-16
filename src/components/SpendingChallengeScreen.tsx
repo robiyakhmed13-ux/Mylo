@@ -286,12 +286,12 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
           <div className="grid grid-cols-2 gap-3 mb-6">
             <Card className="p-4 text-center">
               <Flame className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">{calculateStreak(activeChallenge)}</p>
+              <p className="text-lg font-bold text-foreground">{calculateStreak(activeChallenge)}</p>
               <p className="text-xs text-muted-foreground">{TRANSLATIONS.currentStreak[lang]}</p>
             </Card>
             <Card className="p-4 text-center">
-              <Target className="w-8 h-8 text-primary mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">{activeChallenge.completedDays.length}</p>
+              <Target className="w-6 h-6 text-primary mx-auto mb-2" />
+              <p className="text-lg font-bold text-foreground">{activeChallenge.completedDays.length}</p>
               <p className="text-xs text-muted-foreground">{TRANSLATIONS.daysCompleted[lang]}</p>
             </Card>
           </div>
