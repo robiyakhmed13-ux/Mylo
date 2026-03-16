@@ -580,7 +580,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{labels.monthlySavings}</p>
-                      <p className="text-2xl font-bold text-primary">
+                      <p className="text-lg font-bold text-primary">
                         +{formatCurrency(simulation.monthlySavings, currency)}
                       </p>
                     </div>
