@@ -291,7 +291,7 @@ export const DebtPayoffScreen = memo(() => {
               >
                 <TrendingDown className="w-4 h-4 text-expense mb-1" />
                 <p className="text-[10px] text-muted-foreground">{t.totalDebt}</p>
-                <p className="text-xs font-bold text-expense break-all">{formatCurrency(totalDebt, currency)}</p>
+                <AutoFitAmount value={formatCurrency(totalDebt, currency)} baseSize="sm" className="text-expense" />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
