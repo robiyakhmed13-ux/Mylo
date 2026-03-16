@@ -321,13 +321,13 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-end"
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
           onClick={() => setShowNewChallenge(false)}
         >
           <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            className="w-full bg-background rounded-t-3xl p-6"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-md bg-background rounded-2xl p-5 max-h-[85vh] overflow-y-auto shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl font-bold text-foreground mb-4">{TRANSLATIONS.newChallenge[lang]}</h2>
