@@ -140,9 +140,11 @@ export const NetWorthScreen = memo(() => {
       <div className="card-elevated p-5 mb-section">
         <p className="text-caption mb-2">{t.netWorth}</p>
         <div className="flex items-baseline gap-2 mb-4 flex-wrap">
-          <h2 className={`text-xl font-bold ${netWorth >= 0 ? 'text-income' : 'text-expense'}`}>
-            {formatCurrency(netWorth, currency)}
-          </h2>
+          <AutoFitAmount 
+            value={formatCurrency(netWorth, currency)} 
+            baseSize="xl" 
+            className={netWorth >= 0 ? 'text-income' : 'text-expense'} 
+          />
           {netWorthChange !== 0 && (
             <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-body-medium ${
               netWorthChange > 0 ? 'bg-income/10 text-income' : 'bg-expense/10 text-expense'
