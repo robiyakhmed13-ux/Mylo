@@ -321,55 +321,58 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-hidden"
           onClick={() => setShowNewChallenge(false)}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md bg-background rounded-2xl p-5 max-h-[85vh] overflow-y-auto shadow-xl"
+            className="w-full max-w-md bg-background rounded-t-2xl sm:rounded-2xl h-[min(88dvh,720px)] sm:h-auto sm:max-h-[88vh] shadow-xl flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl font-bold text-foreground mb-4">{TRANSLATIONS.newChallenge[lang]}</h2>
-            <p className="text-muted-foreground mb-4">{TRANSLATIONS.selectType[lang]}</p>
-
-            <div className="space-y-3 mb-6">
-              {CHALLENGE_PRESETS.map((preset) => (
-                <button
-                  key={preset.id}
-                  onClick={() => { triggerLight(); setSelectedPreset(preset.id); }}
-                  className={`w-full p-4 rounded-xl border-2 transition-all flex items-center justify-between ${
-                    selectedPreset === preset.id
-                      ? "border-primary bg-primary/10"
-                      : "border-border bg-card"
-                  }`}
-                >
-                  <span className="flex items-center gap-3">
-                    <span className="text-2xl">{preset.icon}</span>
-                    <div className="text-left">
-                      <span className="text-foreground font-medium block">{getPresetName(preset.id)}</span>
-                      <span className="text-xs text-muted-foreground">{preset.days} {TRANSLATIONS.days[lang]}</span>
-                    </div>
-                  </span>
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                    selectedPreset === preset.id ? "border-primary bg-primary" : "border-muted-foreground"
-                  }`}>
-                    {selectedPreset === preset.id && <Check className="w-3 h-3 text-primary-foreground" />}
-                  </div>
-                </button>
-              ))}
+            <div className="p-5 border-b border-border">
+              <h2 className="text-xl font-bold text-foreground mb-2">{TRANSLATIONS.newChallenge[lang]}</h2>
+              <p className="text-muted-foreground">{TRANSLATIONS.selectType[lang]}</p>
             </div>
 
-            {selectedPreset === "custom" && (
-              <Input
-                value={customName}
-                onChange={(e) => setCustomName(e.target.value)}
-                placeholder={lang === "en" ? "Challenge name..." : lang === "ru" ? "Название челленджа..." : "Chellenj nomi..."}
-                className="mb-4"
-              />
-            )}
+            <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-4">
+              <div className="space-y-2">
+                {CHALLENGE_PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => { triggerLight(); setSelectedPreset(preset.id); }}
+                    className={`w-full p-3 rounded-xl border-2 transition-all flex items-center justify-between ${
+                      selectedPreset === preset.id
+                        ? "border-primary bg-primary/10"
+                        : "border-border bg-card"
+                    }`}
+                  >
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="text-xl">{preset.icon}</span>
+                      <div className="text-left min-w-0">
+                        <span className="text-foreground font-medium block truncate">{getPresetName(preset.id)}</span>
+                        <span className="text-xs text-muted-foreground">{preset.days} {TRANSLATIONS.days[lang]}</span>
+                      </div>
+                    </span>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                      selectedPreset === preset.id ? "border-primary bg-primary" : "border-muted-foreground"
+                    }`}>
+                      {selectedPreset === preset.id && <Check className="w-3 h-3 text-primary-foreground" />}
+                    </div>
+                  </button>
+                ))}
+              </div>
 
-            <div className="flex gap-3">
+              {selectedPreset === "custom" && (
+                <Input
+                  value={customName}
+                  onChange={(e) => setCustomName(e.target.value)}
+                  placeholder={lang === "en" ? "Challenge name..." : lang === "ru" ? "Название челленджа..." : "Chellenj nomi..."}
+                />
+              )}
+            </div>
+
+            <div className="flex gap-3 p-4 border-t border-border bg-background/95 pb-[calc(1rem+env(safe-area-inset-bottom))]">
               <Button variant="outline" onClick={() => setShowNewChallenge(false)} className="flex-1">
                 {TRANSLATIONS.cancel[lang]}
               </Button>
