@@ -218,20 +218,20 @@ export const MoreScreen: React.FC = () => {
                 <h2 className="section-title">{getLabel("frequentlyUsed")}</h2>
               </div>
             </div>
-            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
               {frequentlyUsed.map((tool) => (
                 <button
                   key={tool.screen}
                   onClick={() => handleToolClick(tool.screen)}
-                  className="card-info min-w-[140px] flex items-center gap-3 active:opacity-70"
+                  className="card-info min-w-[100px] max-w-[120px] flex items-center gap-2 px-3 py-2.5 active:opacity-70"
                 >
                   <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center text-white"
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white shrink-0"
                     style={{ backgroundColor: tool.color }}
                   >
-                    {tool.icon}
+                    {React.cloneElement(tool.icon as React.ReactElement, { className: "w-4 h-4" })}
                   </div>
-                  <span className="text-body-medium text-foreground">{getLabel(tool.labelKey)}</span>
+                  <span className="text-xs font-medium text-foreground truncate">{getLabel(tool.labelKey)}</span>
                 </button>
               ))}
             </div>
