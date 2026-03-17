@@ -235,7 +235,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-background rounded-t-3xl sm:rounded-3xl w-full max-w-md h-[min(88dvh,760px)] sm:h-auto sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden"
+          className="bg-background rounded-3xl w-full max-w-md h-full max-h-full sm:h-auto sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
