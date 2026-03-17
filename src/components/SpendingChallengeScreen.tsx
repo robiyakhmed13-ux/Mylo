@@ -321,7 +321,7 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-hidden"
+          className="fixed inset-0 z-[90] bg-black/50 flex items-start sm:items-center justify-center px-3 pt-[calc(var(--safe-area-top)+0.75rem)] pb-[calc(var(--tab-bar-height)+var(--safe-area-bottom)+1.5rem)] sm:p-4 overflow-hidden"
           onClick={() => setShowNewChallenge(false)}
         >
           <motion.div
