@@ -278,7 +278,7 @@
    * ================================ */
   
   .bottom-nav {
-    @apply fixed bottom-0 inset-x-0 z-50;
+    @apply fixed bottom-0 inset-x-0 z-40;
     padding-bottom: max(var(--safe-area-bottom), 8px);
     background: hsl(var(--card) / 0.98);
     backdrop-filter: blur(20px);
