@@ -263,7 +263,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto overscroll-contain px-4 pt-4 pb-[calc(2rem+env(safe-area-inset-bottom))] space-y-4">
+          <div className="flex-1 overflow-y-auto overscroll-contain px-4 pt-4 pb-6 space-y-4">
             {/* Mode Selector - 3 modes */}
             <div className="flex gap-1 p-1 rounded-xl bg-secondary/50">
               <button

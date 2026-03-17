@@ -327,7 +327,7 @@ export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBa
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md bg-background rounded-t-2xl sm:rounded-2xl h-[min(88dvh,720px)] sm:h-auto sm:max-h-[88vh] shadow-xl flex flex-col overflow-hidden"
+            className="w-full max-w-md bg-background rounded-2xl h-full max-h-full sm:h-auto sm:max-h-[88vh] shadow-xl flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-5 border-b border-border">
