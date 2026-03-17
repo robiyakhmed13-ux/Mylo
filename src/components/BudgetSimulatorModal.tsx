@@ -228,14 +228,14 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[80] bg-black/55 flex items-end sm:items-center justify-center p-3 sm:p-4 overflow-hidden"
+        className="fixed inset-0 z-[90] bg-black/55 flex items-start sm:items-center justify-center px-3 pt-[calc(var(--safe-area-top)+0.75rem)] pb-[calc(var(--tab-bar-height)+var(--safe-area-bottom)+1.5rem)] sm:p-4 overflow-hidden"
         onClick={onClose}
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-background rounded-t-3xl sm:rounded-3xl w-full max-w-md h-[min(88dvh,760px)] sm:h-auto sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden"
+          className="bg-background rounded-3xl w-full max-w-md h-full max-h-full sm:h-auto sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -263,7 +263,7 @@ export const BudgetSimulatorModal: React.FC<BudgetSimulatorModalProps> = ({ isOp
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto overscroll-contain px-4 pt-4 pb-[calc(2rem+env(safe-area-inset-bottom))] space-y-4">
+          <div className="flex-1 overflow-y-auto overscroll-contain px-4 pt-4 pb-6 space-y-4">
             {/* Mode Selector - 3 modes */}
             <div className="flex gap-1 p-1 rounded-xl bg-secondary/50">
               <button
