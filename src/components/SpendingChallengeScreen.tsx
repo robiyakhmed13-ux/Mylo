@@ -68,7 +68,8 @@ const CHALLENGE_PRESETS = [
 export const SpendingChallengeScreen: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const { lang } = useApp();
   const { triggerLight, triggerSuccess, triggerError } = useHaptic();
-  const { formatAmount } = useCurrency();
+  const { formatWithCurrency, baseCurrency } = useCurrency();
+  const formatAmount = (amount: number) => formatWithCurrency(amount, baseCurrency);
   const [challenges, setChallenges] = useState<Challenge[]>(() => {
     const saved = localStorage.getItem("spending_challenges");
     if (!saved) return [];
